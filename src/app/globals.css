@@ -4,3 +4,16 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+
+html {
+  background-color: white;
+}
+
+@media (min-width: 1000px) {
+  html {
+    background-image: url("/backgroundPhoto.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+}

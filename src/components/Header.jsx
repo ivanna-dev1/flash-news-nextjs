@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <header className="flex justify-between items-center bg-gray-800 text-white p-4">
+    <header className="flex justify-between items-center sticky top-0 z-50  bg-gray-800 text-white p-4">
       <Navbar />
       <Link href="/">
         <h2 className="text-xl font-bold">FLASHNEWS</h2>
