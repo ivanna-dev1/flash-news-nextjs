@@ -1,68 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
-export const newsCategories = [
-  {
-    id: 1,
-    name: "General",
-    slug: "general",
-    href: "/",
-    description: "Загальні / головні новини — основна стрічка подій",
-  },
-  {
-    id: 2,
-    name: "Business",
-    slug: "business",
-    href: "/business",
-    description: "Бізнес / економіка — ринки, компанії, фінанси",
-  },
-  {
-    id: 3,
-    name: "Technology",
-    slug: "technology",
-    href: "/technology",
-    description: "Технології — IT, гаджети, штучний інтелект",
-  },
-  {
-    id: 4,
-    name: "Science",
-    slug: "science",
-    href: "/science",
-    description: "Наука — дослідження, медицина, космос",
-  },
-  {
-    id: 5,
-    name: "Health",
-    slug: "health",
-    href: "/health",
-    description: "Здоров’я — медицина та wellness",
-  },
-  {
-    id: 6,
-    name: "Sports",
-    slug: "sports",
-    href: "/sports",
-    description: "Спорт — футбол, теніс, баскетбол та інше",
-  },
-  {
-    id: 7,
-    name: "Entertainment",
-    slug: "entertainment",
-    href: "/entertainment",
-    description: "Розваги — кіно, серіали, шоу-бізнес",
-  },
-];
+import { news } from "../../arrayFakeNews";
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const uniqueCategories = [...new Set(news.map((item) => item.category))];
   return (
     <nav className="flex gap-4">
-      <h2>Navbar</h2>
-      {/* <div className="flex flex-col gap-4">
-        {newsCategories.map((category) => (
-          <Link key={category.id} href={category.href}>
-            {category.name}
-          </Link>
-        ))}
-      </div> */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="text-2xl font-bold cursor-pointer "
+      >
+        ☰
+      </button>
+      {isMenuOpen && (
+        <div className="grid grid-cols-2  md:grid-cols-4 fixed inset-0 z-100 p-4 gap-4     ">
+          {uniqueCategories.map((item) => (
+            <Link key={item} href={`/${item}`}>
+              {item}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };

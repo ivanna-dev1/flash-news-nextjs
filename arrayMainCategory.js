@@ -1,0 +1,51 @@
+export const newsCategories = [
+  {
+    id: 1,
+    name: "General",
+    slug: "general",
+    href: "/",
+    description: "Загальні / головні новини — основна стрічка подій",
+  },
+  {
+    id: 2,
+    name: "Business",
+    slug: "business",
+    href: "/business",
+    description: "Бізнес / економіка — ринки, компанії, фінанси",
+  },
+  {
+    id: 3,
+    name: "Technology",
+    slug: "technology",
+    href: "/technology",
+    description: "Технології — IT, гаджети, штучний інтелект",
+  },
+  {
+    id: 4,
+    name: "Science",
+    slug: "science",
+    href: "/science",
+    description: "Наука — дослідження, медицина, космос",
+  },
+  {
+    id: 5,
+    name: "Health",
+    slug: "health",
+    href: "/health",
+    description: "Здоров’я — медицина та wellness",
+  },
+  {
+    id: 6,
+    name: "Sports",
+    slug: "sports",
+    href: "/sports",
+    description: "Спорт — футбол, теніс, баскетбол та інше",
+  },
+  {
+    id: 7,
+    name: "Entertainment",
+    slug: "entertainment",
+    href: "/entertainment",
+    description: "Розваги — кіно, серіали, шоу-бізнес",
+  },
+];
