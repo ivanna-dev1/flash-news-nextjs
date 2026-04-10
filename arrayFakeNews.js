@@ -65,7 +65,7 @@ export const news = [
       "Developers integrate AI into everyday apps and services. This leads to smarter and more personalized user experiences. The impact of AI is expanding across all digital platforms.",
     image: "/mainIMG.png",
     category: "technology",
-    subcategory: "ai",
+    subcategory: "AI",
   },
   {
     id: 8,
@@ -152,7 +152,7 @@ export const news = [
       "Players deliver outstanding results this season. Several athletes have reached career-high statistics. Fans enjoy one of the most competitive seasons in recent years.",
     image: "/mainIMG.png",
     category: "sports",
-    subcategory: "nba",
+    subcategory: "NBA",
   },
 
   // ENTERTAINMENT
@@ -172,7 +172,7 @@ export const news = [
       "Fans celebrate continuation of the hit show. The storyline will expand with new plotlines. Producers promise even more exciting episodes ahead.",
     image: "/mainIMG_3.jpg",
     category: "entertainment",
-    subcategory: "tv",
+    subcategory: "TV",
   },
   {
     id: 19,
