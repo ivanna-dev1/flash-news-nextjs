@@ -26,8 +26,24 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full max-w-[1000px] mx-auto flex flex-col bg-white">
         <Header />
-        <main className="min-h-screen  px-4  pb-20">{children}</main>
-
+        <div className="flex flex-col gap-6 md:flex-row ">
+          <main className="flex flex-col flex-2 gap-2 min-h-screen  px-4  pb-20">{children}</main>
+          {/* <main>
+            <div className="flex flex-col flex-2 gap-2">
+              {news.map((article) => (
+                <BigNewsCard article={article} key={article.id} />
+              ))}
+            </div>
+          </main> */}
+          <aside className="hidden md:grid grid-cols-2 flex-1">
+            <div className=" gap-2 items-start content-start">
+              <WeatherCard image="/weatherIMG.webp" />
+              {news.map((article) => (
+                <SmallNewsCard article={article} key={article.id} />
+              ))}
+            </div>
+          </aside>
+        </div>
         <Footer />
       </body>
     </html>
