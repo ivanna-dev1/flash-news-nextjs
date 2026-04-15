@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { news } from "../../arrayFakeNews.js";
 import WeatherCard from "@/components/WeatherCard";
 import SmallNewsCard from "@/components/SmallNewsCard";
-
+import CategoryBar from "@/components/CategoryBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,16 +30,17 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full max-w-[1000px] mx-auto flex flex-col bg-white">
         <Header />
-        <div className="flex flex-col gap-6 md:flex-row ">
-          <main className="flex flex-2 min-h-screen  px-4  pb-20">{children}</main>
-          {/* <main>
+        <CategoryBar />
+        <div className="flex flex-col gap-4 md:flex-row   w-full px-5">
+          <main className="flex-2 min-h-screen  px-10  pb-20">{children}</main>
+          {/* <main> 
             <div className="flex flex-col flex-2 gap-2">
               {news.map((article) => (
                 <BigNewsCard article={article} key={article.id} />
               ))}
             </div>
           </main> */}
-          <aside className="hidden md:grid grid-cols-2 flex-1 gap-2 items-start content-start">
+          <aside className="hidden md:grid grid-cols-2 flex-1  gap-2 items-start content-start mx-5">
             <WeatherCard image="/weatherIMG.webp" />
             {news.map((article) => (
               <SmallNewsCard article={article} key={article.id} />

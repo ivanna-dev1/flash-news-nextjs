@@ -5,8 +5,8 @@ export const news = [
     description:
       "Emperor penguins are now officially classified as endangered due to climate change and melting Antarctic ice. Scientists warn that their population could decline by half by the 2080s if current trends continue.",
     image: "/mainIMG_3.jpg",
-    category: "science",
-    subcategory: "climate",
+    category: "Science",
+    subcategory: "Climate",
     article: `
 Emperor penguins have been added to the list of endangered species.
 An international organization for the conservation of endangered wildlife has classified the emperor penguin as a species at risk of extinction.
@@ -29,8 +29,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "A summary of the most important stories happening around the world right now. From politics to technology, key developments are influencing global trends. Stay informed about the events shaping the current week.",
     image: "/mainIMG.png",
-    category: "general",
-    subcategory: "top",
+    category: "General",
+    subcategory: "Top",
   },
   {
     id: 2,
@@ -38,8 +38,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Latest updates from multiple sectors gathered in one place. Important breaking stories are developing rapidly across the globe. Follow the most critical updates as they unfold.",
     image: "/mainIMG_2.jpg",
-    category: "general",
-    subcategory: "breaking",
+    category: "General",
+    subcategory: "Breaking",
   },
 
   // BUSINESS
@@ -49,8 +49,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Major companies exceeded expectations, boosting investor confidence. Global markets responded positively to strong financial results. Analysts expect continued momentum in the coming weeks.",
     image: "/mainIMG_3.jpg",
-    category: "business",
-    subcategory: "markets",
+    category: "Business",
+    subcategory: "Markets",
   },
   {
     id: 4,
@@ -58,8 +58,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Tech giants are increasing budgets for artificial intelligence projects. Companies are racing to gain a competitive advantage through innovation. This trend is reshaping the future of multiple industries.",
     image: "/mainIMG.png",
-    category: "business",
-    subcategory: "companies",
+    category: "Business",
+    subcategory: "Companies",
   },
   {
     id: 5,
@@ -67,8 +67,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Exchange rate changes are affecting international business strategies. Companies are adjusting pricing and supply chains accordingly. Experts warn about potential long-term economic effects.",
     image: "/mainIMG_2.jpg",
-    category: "business",
-    subcategory: "economy",
+    category: "Business",
+    subcategory: "Economy",
   },
 
   // TECHNOLOGY
@@ -78,8 +78,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "The latest device introduces faster processing and better battery life. It raises the standard for future smartphone releases. Consumers can expect noticeable improvements in daily use.",
     image: "/mainIMG_3.jpg",
-    category: "technology",
-    subcategory: "gadgets",
+    category: "Technology",
+    subcategory: "Gadgets",
   },
   {
     id: 7,
@@ -87,7 +87,7 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Developers integrate AI into everyday apps and services. This leads to smarter and more personalized user experiences. The impact of AI is expanding across all digital platforms.",
     image: "/mainIMG.png",
-    category: "technology",
+    category: "Technology",
     subcategory: "AI",
   },
   {
@@ -96,8 +96,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Experts warn about increasing risks in online environments. New types of attacks are becoming more sophisticated. Businesses and individuals must strengthen their digital protection.",
     image: "/mainIMG_2.jpg",
-    category: "technology",
-    subcategory: "security",
+    category: "Technology",
+    subcategory: "Security",
   },
 
   // SCIENCE
@@ -107,8 +107,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "A newly found planet may have conditions suitable for life. Researchers are analyzing its atmosphere and composition. This discovery brings new hope in the search for extraterrestrial life.",
     image: "/mainIMG_3.jpg",
-    category: "science",
-    subcategory: "space",
+    category: "Science",
+    subcategory: "Space",
   },
   {
     id: 10,
@@ -116,8 +116,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Researchers developed a new approach to treating chronic diseases. Early results show promising outcomes in clinical trials. This could change the future of modern medicine.",
     image: "/mainIMG.png",
-    category: "science",
-    subcategory: "medicine",
+    category: "Science",
+    subcategory: "Medicine",
   },
   {
     id: 11,
@@ -125,8 +125,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Scientists observe unexpected environmental changes. These patterns may influence future climate predictions. Further studies are needed to understand long-term impacts.",
     image: "/mainIMG_2.jpg",
-    category: "science",
-    subcategory: "climate",
+    category: "Science",
+    subcategory: "Climate",
     article: "",
   },
 
@@ -137,8 +137,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Simple lifestyle changes can significantly boost well-being. Consistency plays a key role in maintaining good health. Small habits can lead to major long-term benefits.",
     image: "/mainIMG_3.jpg",
-    category: "health",
-    subcategory: "wellness",
+    category: "Health",
+    subcategory: "Wellness",
   },
   {
     id: 13,
@@ -146,8 +146,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Doctors explore innovative therapies for cardiovascular health. New technologies improve patient outcomes. These treatments may become widely available in the near future.",
     image: "/mainIMG.png",
-    category: "health",
-    subcategory: "medicine",
+    category: "Health",
+    subcategory: "Medicine",
   },
 
   // SPORTS
@@ -157,8 +157,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "A last-minute goal secured the championship victory. Fans witnessed an intense and emotional match. The win will be remembered as one of the most exciting finals.",
     image: "/mainIMG_2.jpg",
-    category: "sports",
-    subcategory: "football",
+    category: "Sports",
+    subcategory: "Football",
   },
   {
     id: 15,
@@ -166,8 +166,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "A dominant performance leads to another grand slam win. The athlete showed exceptional skill throughout the tournament. This victory strengthens their position in rankings.",
     image: "/mainIMG_3.jpg",
-    category: "sports",
-    subcategory: "tennis",
+    category: "Sports",
+    subcategory: "Tennis",
   },
   {
     id: 16,
@@ -175,7 +175,7 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Players deliver outstanding results this season. Several athletes have reached career-high statistics. Fans enjoy one of the most competitive seasons in recent years.",
     image: "/mainIMG.png",
-    category: "sports",
+    category: "Sports",
     subcategory: "NBA",
   },
 
@@ -186,8 +186,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "The film achieved massive success during opening weekend. It attracted huge audiences worldwide. Critics and fans are actively discussing its impact.",
     image: "/mainIMG_2.jpg",
-    category: "entertainment",
-    subcategory: "movies",
+    category: "Entertainment",
+    subcategory: "Movies",
   },
   {
     id: 18,
@@ -195,7 +195,7 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Fans celebrate continuation of the hit show. The storyline will expand with new plotlines. Producers promise even more exciting episodes ahead.",
     image: "/mainIMG_3.jpg",
-    category: "entertainment",
+    category: "Entertainment",
     subcategory: "TV",
   },
   {
@@ -204,8 +204,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "New fashion and lifestyle trends go viral. Influencers are setting new standards across industries. Social platforms quickly spread these trends worldwide.",
     image: "/mainIMG.png",
-    category: "entertainment",
-    subcategory: "celebrities",
+    category: "Entertainment",
+    subcategory: "Celebrities",
   },
 
   // POLITICS
@@ -215,8 +215,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "New policies aim to improve economic stability. Officials highlight long-term benefits of these changes. Public reaction remains mixed as details emerge.",
     image: "/mainIMG_2.jpg",
-    category: "politics",
-    subcategory: "policy",
+    category: "Politics",
+    subcategory: "Policy",
   },
   {
     id: 21,
@@ -224,8 +224,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Candidates increase public appearances ahead of voting. Debates and discussions become more active. Voters are closely following political developments.",
     image: "/mainIMG_3.jpg",
-    category: "politics",
-    subcategory: "elections",
+    category: "Politics",
+    subcategory: "Elections",
   },
 
   // WORLD
@@ -235,8 +235,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Leaders discuss global challenges and cooperation. Security remains a top priority for many countries. Agreements may influence future international relations.",
     image: "/mainIMG.png",
-    category: "world",
-    subcategory: "diplomacy",
+    category: "World",
+    subcategory: "Diplomacy",
   },
   {
     id: 23,
@@ -244,8 +244,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Relief efforts continue after severe conditions. Emergency services are working around the clock. Communities begin recovery after the disaster.",
     image: "/mainIMG_2.jpg",
-    category: "world",
-    subcategory: "events",
+    category: "World",
+    subcategory: "Events",
   },
 
   // LIFESTYLE
@@ -255,8 +255,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Explore the most popular places to visit. Travelers are choosing both classic locations and emerging destinations. Travel trends continue to evolve throughout the year.",
     image: "/mainIMG_3.jpg",
-    category: "lifestyle",
-    subcategory: "travel",
+    category: "Lifestyle",
+    subcategory: "Travel",
   },
   {
     id: 25,
@@ -264,8 +264,8 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Nutrition experts highlight new eating habits. People are focusing more on balanced diets. These trends promote long-term health benefits.",
     image: "/mainIMG.png",
-    category: "lifestyle",
-    subcategory: "food",
+    category: "Lifestyle",
+    subcategory: "Food",
   },
   {
     id: 26,
@@ -273,7 +273,7 @@ There are also reports of a risk of mass mortality during the molting period, wh
     description:
       "Designers introduce fresh styles and ideas. Collections feature bold and modern elements. The fashion industry continues to evolve rapidly.",
     image: "/mainIMG_2.jpg",
-    category: "lifestyle",
-    subcategory: "fashion",
+    category: "Lifestyle",
+    subcategory: "Fashion",
   },
 ];
