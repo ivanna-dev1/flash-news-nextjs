@@ -11,18 +11,17 @@ export default async function NewsPage({ params }) {
   }
 
   return (
-    <div className="gap-2 m-5 ">
+    <div className="gap-2 mx-5 ">
       <Breadcrumbs
-        className="my-5 mx-5"
         category={article.category}
         subCategory={article.subcategory}
       />
-      <h1 className="text-center text-3xl font-medium text-black ">
+      <h1 className="text-center text-3xl font-medium text-red-800 ">
         {article.title}
       </h1>
-      <div className="my-5 mx-5">
+      <div className="my-5 ">
         <Image
-          className=" float-left mr-6 mb-4 rounded-lg "
+          className=" float-left mr-6 mb-4 "
           src={article.image}
           alt="FlashNews"
           width={300}

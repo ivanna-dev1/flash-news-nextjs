@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SmallNewsCard({ article }) {
   return (
@@ -11,7 +12,7 @@ export default function SmallNewsCard({ article }) {
         <Image src={article.image} alt="FlashNews" width={100} height={100} />
       </div>
       <h2 className="text-center text-blue-800 p-1 hover:text-blue-800 cursor-pointer hover:underline">
-        {article.title}
+        <Link href={`/news/${article.id}`}>{article.title}</Link>
       </h2>
 
       {/* <div className="flex flex-row justify-between items-center">

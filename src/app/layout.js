@@ -31,8 +31,8 @@ export default function RootLayout({ children }) {
       <body className="min-h-full max-w-[1000px] mx-auto flex flex-col bg-white">
         <Header />
         <CategoryBar />
-        <div className="flex flex-col gap-4 md:flex-row   w-full px-5">
-          <main className="flex-2 min-h-screen  px-10  pb-20">{children}</main>
+        <div className="flex flex-col gap-5 md:flex-row   w-full px-7 py-5">
+          <main className="flex-2 min-h-screen">{children}</main>
           {/* <main> 
             <div className="flex flex-col flex-2 gap-2">
               {news.map((article) => (
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
               ))}
             </div>
           </main> */}
-          <aside className="hidden md:grid grid-cols-2 flex-1  gap-2 items-start content-start mx-5">
+          <aside className="hidden md:grid grid-cols-2 flex-1  gap-2 items-start content-start ">
             <WeatherCard image="/weatherIMG.webp" />
             {news.map((article) => (
               <SmallNewsCard article={article} key={article.id} />
