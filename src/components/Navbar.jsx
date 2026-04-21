@@ -6,9 +6,6 @@ import { news } from "../../arrayFakeNews";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const uniqueCategories = [...new Set(news.map((item) => item.category))];
-  console.log(
-    "uniqueCategories" + uniqueCategories + "news" + news.subcategory,
-  );
   // const uniqueSubCategories = [
   //   ...new Set(uniqueCategories.map((item) => item.subcategory)),
   // ];

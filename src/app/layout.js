@@ -33,13 +33,6 @@ export default function RootLayout({ children }) {
         <CategoryBar />
         <div className="flex flex-col gap-5 md:flex-row   w-full px-7 py-5">
           <main className="flex-2 min-h-screen">{children}</main>
-          {/* <main> 
-            <div className="flex flex-col flex-2 gap-2">
-              {news.map((article) => (
-                <BigNewsCard article={article} key={article.id} />
-              ))}
-            </div>
-          </main> */}
           <aside className="hidden md:grid grid-cols-2 flex-1  gap-2 items-start content-start ">
             <WeatherCard image="/weatherIMG.webp" />
             {news.map((article) => (
