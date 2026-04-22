@@ -6,7 +6,7 @@ import { news } from "../../arrayFakeNews.js";
 export default function Home() {
   return (
     <div>
-      <p className="text-center text-3xl text-black mb-5 font-gelasio font-medium ">
+      <p className="text-center text-3xl text-black mb-5 font-gelasio font-medium">
         Stay informed with the latest news from around the world. We bring you
         accurate, timely, and relevant stories every day.
       </p>

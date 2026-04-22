@@ -13,14 +13,14 @@ export default function Breadcrumbs({ category, subCategory }) {
       <p> / </p>
       <Link
         className="hover:underline cursor-pointer hover:text-blue-900"
-        href={`/news/${category}`}
+        href={`/${category}`}
       >
         {category}
       </Link>
       <p> / </p>
       <Link
         className="hover:underline cursor-pointer hover:text-blue-900"
-        href={`/news/${category}/${subCategory}`}
+        href={`/${category}/${subCategory}`}
       >
         {subCategory}
       </Link>

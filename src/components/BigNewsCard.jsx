@@ -5,14 +5,14 @@ import Link from "next/link";
 export default function BigNewsCard({ article }) {
   return (
     <div className="flex flex-col justify-around  items-center border  border-gray-300 text-gray-800 gap-3 h-full w-full p-5">
-      <div className="flex sm:flex-row flex-col justify-between items-center gap-5">
+      <div className="flex sm:flex-row   flex-col justify-between items-center gap-5">
         <div className="flex-1 flex  ">
           <Image
             src={article.image}
             alt="FlashNews"
             width={200}
             height={200}
-          // className="float-left mr-6 mb-4 rounded-lg "
+            // className="float-left mr-6 mb-4 rounded-lg "
           />
         </div>
         <div className="flex-2 flex flex-col items-center justify-center ">
