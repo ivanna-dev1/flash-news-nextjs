@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
         <div className="flex flex-col gap-3 md:flex-row   w-full px-5 py-3">
           <main className="flex-2 min-h-screen">{children}</main>
           <aside
-            className={`hidden md:grid gap-2 items-start content-start ${isHomePage ? "grid-cols-2 flex-1" : "grid-cols-1 w-44"}`}
+            className={`hidden md:grid gap-2 items-start content-start ${isHomePage ? "grid-cols-2 flex-1" : "grid-cols-1 w-44 mt-22  "}`}
           >
             <WeatherCard image="/weatherIMG.webp" />
             {news.map((article) => (

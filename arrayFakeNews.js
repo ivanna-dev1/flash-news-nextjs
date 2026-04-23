@@ -1,33 +1,10 @@
 export const news = [
-  {
-    id: 27,
-    title: "Emperor penguins added to endangered species list",
-    description:
-      "Emperor penguins are now officially classified as endangered due to climate change and melting Antarctic ice. Scientists warn that their population could decline by half by the 2080s if current trends continue.",
-    image: "/mainIMG_3.jpg",
-    category: "Science",
-    subcategory: "Climate",
-    article: `
-Emperor penguins have been added to the list of endangered species.
-An international organization for the conservation of endangered wildlife has classified the emperor penguin as a species at risk of extinction.
-This status change indicates an existential threat to species that depend on ice, as global warming is fundamentally altering Antarctica.
-Emperor penguins rely on sea ice for living, hunting, and breeding. The destruction and disappearance of these ice platforms have already led to a sharp decline in their population.
-The International Union for Conservation of Nature (IUCN) reported that changes in sea ice caused by climate change are likely to reduce the emperor penguin population by half by the 2080s.
-Scientists concluded that human-driven climate change is the most serious threat to this species.
-The IUCN Red List is the most comprehensive source of information on the conservation status of species worldwide.
-Emperor penguins — the largest of their kind — have become a symbol of survival in the harsh Antarctic climate.
-They breed on sea ice during winter, and males keep the eggs warm by balancing them on their feet. Sea ice is also essential for raising chicks.
-However, due to climate change, sea ice is becoming less stable and breaking up earlier.
-Since 2016, sea ice levels have reached record lows. Satellite observations show that between 2009 and 2018, about 20,000 adult individuals disappeared — approximately 10% of the population.
-Scientists note that emperor penguins are an indicator species that reflects the scale of climate change.
-There are also reports of a risk of mass mortality during the molting period, when the birds are especially dependent on stable ice conditions.`,
-  },
   // GENERAL
   {
     id: 1,
     title: "Major global events shaping the week",
     description:
-      "A summary of the most important stories happening around the world right now. From politics to technology, key developments are influencing global trends. Stay informed about the events shaping the current week.",
+      "A summary of the most important stories happening around the world right now. From politics to technology, key developments are influencing global trends. Stay informed about the events shaping the current week.This is a test string to check the length of the description.",
     image: "/mainIMG.png",
     category: "General",
     subcategory: "Top",
@@ -275,5 +252,28 @@ There are also reports of a risk of mass mortality during the molting period, wh
     image: "/mainIMG_2.jpg",
     category: "Lifestyle",
     subcategory: "Fashion",
+  },
+  {
+    id: 27,
+    title: "Emperor penguins added to endangered species list",
+    description:
+      "Emperor penguins are now officially classified as endangered due to climate change and melting Antarctic ice. Scientists warn that their population could decline by half by the 2080s if current trends continue.",
+    image: "/mainIMG_3.jpg",
+    category: "Science",
+    subcategory: "Climate",
+    article: `
+Emperor penguins have been added to the list of endangered species.
+An international organization for the conservation of endangered wildlife has classified the emperor penguin as a species at risk of extinction.
+This status change indicates an existential threat to species that depend on ice, as global warming is fundamentally altering Antarctica.
+Emperor penguins rely on sea ice for living, hunting, and breeding. The destruction and disappearance of these ice platforms have already led to a sharp decline in their population.
+The International Union for Conservation of Nature (IUCN) reported that changes in sea ice caused by climate change are likely to reduce the emperor penguin population by half by the 2080s.
+Scientists concluded that human-driven climate change is the most serious threat to this species.
+The IUCN Red List is the most comprehensive source of information on the conservation status of species worldwide.
+Emperor penguins — the largest of their kind — have become a symbol of survival in the harsh Antarctic climate.
+They breed on sea ice during winter, and males keep the eggs warm by balancing them on their feet. Sea ice is also essential for raising chicks.
+However, due to climate change, sea ice is becoming less stable and breaking up earlier.
+Since 2016, sea ice levels have reached record lows. Satellite observations show that between 2009 and 2018, about 20,000 adult individuals disappeared — approximately 10% of the population.
+Scientists note that emperor penguins are an indicator species that reflects the scale of climate change.
+There are also reports of a risk of mass mortality during the molting period, when the birds are especially dependent on stable ice conditions.`,
   },
 ];

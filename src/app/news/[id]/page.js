@@ -16,7 +16,7 @@ export default async function NewsPage({ params }) {
         category={article.category}
         subCategory={article.subcategory}
       />
-      <h1 className="text-center text-3xl font-medium text-red-800 ">
+      <h1 className="text-center text-3xl font-medium text-red-800 mt-5">
         {article.title}
       </h1>
       <div className="my-5 ">

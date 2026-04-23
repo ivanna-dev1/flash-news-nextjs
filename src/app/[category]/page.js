@@ -16,9 +16,13 @@ export default async function CategoryPage({ params }) {
       <h3 className=" text-3xl font-semibold text-center text-gray-700 p-1 mb-5 ">
         {category} News
       </h3>
-      <div className="md:grid grid-cols-2 flex-1  gap-2 items-start content-start ">
-        {filteredNews.map((article) => (
-          <CategoryNewsCard article={article} key={article.id} />
+      <div className="md:grid grid-cols-5 flex-1  gap-3 items-start content-start ">
+        {filteredNews.map((article, index) => (
+          <CategoryNewsCard
+            article={article}
+            key={article.id}
+            isBig={index % 4 === 0 || index % 4 === 3}
+          />
         ))}
       </div>
     </div>

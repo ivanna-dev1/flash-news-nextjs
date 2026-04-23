@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Breadcrumbs({ category, subCategory }) {
   return (
-    <div className="flex flex-row gap-2 text-gray-700 text-md mb-5">
+    <div className="flex flex-row gap-2 text-gray-700 text-md ">
       <Link
         className="hover:underline cursor-pointer hover:text-blue-900"
         href="/"
@@ -11,19 +11,27 @@ export default function Breadcrumbs({ category, subCategory }) {
         Home
       </Link>
       <p> / </p>
-      <Link
-        className="hover:underline cursor-pointer hover:text-blue-900"
-        href={`/${category}`}
-      >
-        {category}
-      </Link>
-      <p> / </p>
-      <Link
-        className="hover:underline cursor-pointer hover:text-blue-900"
-        href={`/${category}/${subCategory}`}
-      >
-        {subCategory}
-      </Link>
+      {category && (
+        <>
+          <Link
+            className="hover:underline cursor-pointer hover:text-blue-900"
+            href={category}
+          >
+            {category}
+          </Link>
+          <p> / </p>
+        </>
+      )}
+      {subCategory && (
+        <>
+          <Link
+            className="hover:underline cursor-pointer hover:text-blue-900"
+            href={`${category}/${subCategory}`}
+          >
+            {subCategory}
+          </Link>
+        </>
+      )}
     </div>
   );
 }
