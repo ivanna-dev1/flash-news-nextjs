@@ -1,9 +1,15 @@
-import Image from "next/image";
-import SmallNewsCard from "@/components/SmallNewsCard";
 import BigNewsCard from "@/components/BigNewsCard";
 import { news } from "../../arrayFakeNews.js";
-
-export default function Home() {
+import Pagination from "@/components/Pagination";
+export default async function Home({ searchParams }) {
+  const sp = await searchParams;
+  const currentPage = Number(sp.page) || 1;
+  console.log("currentPage", currentPage);
+  const itemsPerPage = 10;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNews = news.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(news.length / itemsPerPage);
   return (
     <div>
       <p className="text-center text-3xl text-black mb-5 font-gelasio font-medium">
@@ -12,11 +18,18 @@ export default function Home() {
       </p>
       <div className="flex flex-col gap-6  ">
         <div className="flex flex-col flex-2 gap-2">
-          {news.map((article) => (
+          {currentNews.map((article) => (
             <BigNewsCard article={article} key={article.id} />
           ))}
         </div>
       </div>
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          basePath="/"
+        />
+      )}
     </div>
   );
 }

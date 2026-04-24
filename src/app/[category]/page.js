@@ -2,13 +2,20 @@ import React from "react";
 import { news } from "../../../arrayFakeNews.js";
 import CategoryNewsCard from "@/components/CategoryNewsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
-
-export default async function CategoryPage({ params }) {
+import Pagination from "@/components/Pagination";
+export default async function CategoryPage({ params, searchParams }) {
   const { category } = await params;
   const categoryNews = news.filter((item) => item.category === category);
   const filteredNews = categoryNews.filter(
     (item) => item.category === category,
   );
+  const sp = await searchParams;
+  const currentPage = Number(sp.page) || 1;
+  const itemsPerPage = 20;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentNews = filteredNews.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
 
   return (
     <div>
@@ -17,7 +24,7 @@ export default async function CategoryPage({ params }) {
         {category} News
       </h3>
       <div className="md:grid grid-cols-5 flex-1  gap-3 items-start content-start ">
-        {filteredNews.map((article, index) => (
+        {currentNews.map((article, index) => (
           <CategoryNewsCard
             article={article}
             key={article.id}
@@ -25,6 +32,13 @@ export default async function CategoryPage({ params }) {
           />
         ))}
       </div>
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          basePath={`/${category}`}
+        />
+      )}
     </div>
   );
 }
