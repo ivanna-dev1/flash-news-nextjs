@@ -6,6 +6,16 @@ export default function Pagination({ totalPages, currentPage, basePath }) {
   return (
     <nav className="py-3 text-center mt-5">
       <ul className="flex justify-center gap-1">
+        {currentPage > 1 && (
+          <li>
+            <Link
+              href={`${basePath}?page=${currentPage - 1}`}
+              className="px-4 py-2 rounded  bg-gray-200 text-black"
+            >
+              &lt;prev
+            </Link>
+          </li>
+        )}
         {pages.map((page) => (
           <li key={page}>
             <Link
@@ -20,6 +30,16 @@ export default function Pagination({ totalPages, currentPage, basePath }) {
             </Link>
           </li>
         ))}
+        {currentPage < totalPages && (
+          <li>
+            <Link
+              href={`${basePath}?page=${currentPage + 1}`}
+              className="px-4 py-2 rounded  bg-gray-200 text-black"
+            >
+              next&gt;
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
