@@ -4,7 +4,6 @@ import Pagination from "@/components/Pagination";
 export default async function Home({ searchParams }) {
   const sp = await searchParams;
   const currentPage = Number(sp.page) || 1;
-  console.log("currentPage", currentPage);
   const itemsPerPage = 10;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

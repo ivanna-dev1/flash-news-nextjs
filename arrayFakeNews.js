@@ -5,7 +5,7 @@ export const news = [
     title: "Major global events shaping the week",
     description:
       "A summary of the most important stories happening around the world right now. From politics to technology, key developments are influencing global trends. Stay informed about the events shaping the current week.This is a test string to check the length of the description.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "General",
     subcategory: "Top",
   },
@@ -14,7 +14,7 @@ export const news = [
     title: "Breaking news: key updates you need to know",
     description:
       "Latest updates from multiple sectors gathered in one place. Important breaking stories are developing rapidly across the globe. Follow the most critical updates as they unfold.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "General",
     subcategory: "Breaking",
   },
@@ -34,7 +34,7 @@ export const news = [
     title: "Top companies investing heavily in AI",
     description:
       "Tech giants are increasing budgets for artificial intelligence projects. Companies are racing to gain a competitive advantage through innovation. This trend is reshaping the future of multiple industries.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Business",
     subcategory: "Companies",
   },
@@ -43,7 +43,7 @@ export const news = [
     title: "Currency fluctuations impact global trade",
     description:
       "Exchange rate changes are affecting international business strategies. Companies are adjusting pricing and supply chains accordingly. Experts warn about potential long-term economic effects.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Business",
     subcategory: "Economy",
   },
@@ -63,7 +63,7 @@ export const news = [
     title: "AI continues to transform digital products",
     description:
       "Developers integrate AI into everyday apps and services. This leads to smarter and more personalized user experiences. The impact of AI is expanding across all digital platforms.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Technology",
     subcategory: "AI",
   },
@@ -72,7 +72,7 @@ export const news = [
     title: "Cybersecurity threats on the rise",
     description:
       "Experts warn about increasing risks in online environments. New types of attacks are becoming more sophisticated. Businesses and individuals must strengthen their digital protection.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Technology",
     subcategory: "Security",
   },
@@ -92,7 +92,7 @@ export const news = [
     title: "Breakthrough in medical research",
     description:
       "Researchers developed a new approach to treating chronic diseases. Early results show promising outcomes in clinical trials. This could change the future of modern medicine.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Science",
     subcategory: "Medicine",
   },
@@ -101,7 +101,7 @@ export const news = [
     title: "Climate research reveals new patterns",
     description:
       "Scientists observe unexpected environmental changes. These patterns may influence future climate predictions. Further studies are needed to understand long-term impacts.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Science",
     subcategory: "Climate",
     article: "",
@@ -122,7 +122,7 @@ export const news = [
     title: "New treatment options for heart disease",
     description:
       "Doctors explore innovative therapies for cardiovascular health. New technologies improve patient outcomes. These treatments may become widely available in the near future.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Health",
     subcategory: "Medicine",
   },
@@ -133,7 +133,7 @@ export const news = [
     title: "Football team wins dramatic final",
     description:
       "A last-minute goal secured the championship victory. Fans witnessed an intense and emotional match. The win will be remembered as one of the most exciting finals.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Sports",
     subcategory: "Football",
   },
@@ -151,7 +151,7 @@ export const news = [
     title: "NBA season highlights top performances",
     description:
       "Players deliver outstanding results this season. Several athletes have reached career-high statistics. Fans enjoy one of the most competitive seasons in recent years.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Sports",
     subcategory: "NBA",
   },
@@ -162,7 +162,7 @@ export const news = [
     title: "New blockbuster breaks records",
     description:
       "The film achieved massive success during opening weekend. It attracted huge audiences worldwide. Critics and fans are actively discussing its impact.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Entertainment",
     subcategory: "Movies",
   },
@@ -180,7 +180,7 @@ export const news = [
     title: "Celebrity trends dominate social media",
     description:
       "New fashion and lifestyle trends go viral. Influencers are setting new standards across industries. Social platforms quickly spread these trends worldwide.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Entertainment",
     subcategory: "Celebrities",
   },
@@ -191,7 +191,7 @@ export const news = [
     title: "Government announces new reforms",
     description:
       "New policies aim to improve economic stability. Officials highlight long-term benefits of these changes. Public reaction remains mixed as details emerge.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Politics",
     subcategory: "Policy",
   },
@@ -211,7 +211,7 @@ export const news = [
     title: "International summit focuses on security",
     description:
       "Leaders discuss global challenges and cooperation. Security remains a top priority for many countries. Agreements may influence future international relations.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "World",
     subcategory: "Diplomacy",
   },
@@ -220,7 +220,7 @@ export const news = [
     title: "Natural disaster impacts thousands",
     description:
       "Relief efforts continue after severe conditions. Emergency services are working around the clock. Communities begin recovery after the disaster.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "World",
     subcategory: "Events",
   },
@@ -240,7 +240,7 @@ export const news = [
     title: "Healthy food trends gaining popularity",
     description:
       "Nutrition experts highlight new eating habits. People are focusing more on balanced diets. These trends promote long-term health benefits.",
-    image: "/mainIMG.png",
+    image: "/mainIMG_2.jpg",
     category: "Lifestyle",
     subcategory: "Food",
   },
@@ -249,7 +249,7 @@ export const news = [
     title: "Fashion trends for the new season",
     description:
       "Designers introduce fresh styles and ideas. Collections feature bold and modern elements. The fashion industry continues to evolve rapidly.",
-    image: "/mainIMG_2.jpg",
+    image: "/mainIMG.png",
     category: "Lifestyle",
     subcategory: "Fashion",
   },
