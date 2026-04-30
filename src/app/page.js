@@ -1,8 +1,11 @@
 import BigNewsCard from "@/components/BigNewsCard";
-import { news } from "../../arrayFakeNews.js";
+// import { news } from "../../arrayFakeNews.js";
 import Pagination from "@/components/Pagination";
 export default async function Home({ searchParams }) {
   const sp = await searchParams;
+  const response = await fetch("http://localhost:3000/api/news");
+  const news = await response.json();
+
   const currentPage = Number(sp.page) || 1;
   const itemsPerPage = 10;
   const startIndex = (currentPage - 1) * itemsPerPage;

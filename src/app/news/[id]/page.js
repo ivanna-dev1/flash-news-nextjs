@@ -1,10 +1,13 @@
-import { news } from "../../../../arrayFakeNews";
+// import { news } from "../../../../arrayFakeNews";
 import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export default async function NewsPage({ params }) {
   const { id } = await params;
-  const article = news.find((item) => item.id === Number(id));
+  const response = await fetch(`http://localhost:3000/api/news/${id}`);
+  const article = await response.json();
+  if (!article || article.error)
+    return <div className="text-red-500">Error fetching news</div>;
 
   if (!article) {
     return <div>Article not found</div>;
