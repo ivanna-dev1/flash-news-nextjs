@@ -1,14 +1,16 @@
 import React from "react";
-import { news } from "../../../arrayFakeNews.js";
+
 import CategoryNewsCard from "@/components/CategoryNewsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
+import useNews from "@/hooks/useNews";
 export default async function CategoryPage({ params, searchParams }) {
   const { category } = await params;
-  const categoryNews = news.filter((item) => item.category === category);
-  const filteredNews = categoryNews.filter(
-    (item) => item.category === category,
+  const response = await fetch(
+    `http://localhost:3000/api/news?category=${category}`,
   );
+  const filteredNews = await response.json();
+
   const sp = await searchParams;
   const currentPage = Number(sp.page) || 1;
   const itemsPerPage = 20;

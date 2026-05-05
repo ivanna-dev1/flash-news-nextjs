@@ -1,14 +1,29 @@
 import { NextResponse } from "next/server";
-import { news } from "../arrayFakeNews.js";
 
 export async function GET(request, { params }) {
+  const apiKey = process.env.GNEWS_API_KEY;
+  const url =
+    "https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=10&apikey=" +
+    apiKey;
   try {
     const { id } = await params;
-    const article = news.find((item) => item.id === Number(id));
+    const response = await fetch(url);
+    const data = await response.json();
+    const articles = data.articles.map((item, index) => ({
+      id: index + 1,
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      category: "General",
+      subCategory: "Latest",
+      article: item.content || item.description,
+      source: item.source.name,
+    }));
+    const article = articles.find((item) => item.id === Number(id));
+    // return NextResponse.json(articles[Number(id) - 1]);
     if (!article) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     return NextResponse.json(article);
   } catch (error) {
     return NextResponse.json(

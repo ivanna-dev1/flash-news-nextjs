@@ -1,5 +1,4 @@
 import BigNewsCard from "@/components/BigNewsCard";
-// import { news } from "../../arrayFakeNews.js";
 import Pagination from "@/components/Pagination";
 export default async function Home({ searchParams }) {
   const sp = await searchParams;
