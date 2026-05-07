@@ -18,8 +18,8 @@ export default async function CategoryPage({ params, searchParams }) {
   return (
     <div>
       <Breadcrumbs category={category} subcategory={subcategory} />
-      <h3 className=" text-3xl font-semibold text-center text-gray-700 p-1 mb-5 ">
-        {subcategory} News
+      <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5 capitalize">
+        {subcategory} news
       </h3>
       <div className="md:grid grid-cols-5  flex-1  gap-3 items-start content-start ">
         {currentNews.map((article, index) => (

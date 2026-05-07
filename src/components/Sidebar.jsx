@@ -5,7 +5,9 @@ import WeatherCard from "./WeatherCard";
 import useNews from "../hooks/useNews";
 
 export default function Sidebar() {
-  const { data: news, isLoading, isError } = useNews();
+  const { data, isLoading, isError } = useNews();
+  const news = Array.isArray(data) ? data : [];
+
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   if (isLoading) return <div>Loading news...</div>;
@@ -19,12 +21,12 @@ export default function Sidebar() {
       <WeatherCard image="/weatherIMG.webp" />
       {isHomePage
         ? news
-            .slice(0, 28)
+            .slice(0, 30)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))
         : news
-            .slice(0, 5)
+            .slice(0, 15)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))}

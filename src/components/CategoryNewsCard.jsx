@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function CategoryNewsCard({ article, isBig }) {
   const words = article.description.split(" ");
-  const maxLength = isBig ? 33 : 10;
+  const maxLength = isBig ? 30 : 10;
   const isLong = words.length > maxLength;
   const displayDescription = isLong
     ? words.slice(0, maxLength).join(" ") + "..."
@@ -16,7 +16,7 @@ export default function CategoryNewsCard({ article, isBig }) {
         isBig ? "md:col-span-3" : "md:col-span-2"
       }`}
     >
-      <div className="flex   flex-col justify-between   gap-2 h-full   ">
+      <div className="flex   flex-col justify-between   gap-2 h-full">
         <div className="  gap-3 text-md ">
           <div
             className={`float-left mr-3 mb-1 ${isBig ? "w-[170px] max-h-[170px] " : "w-[120px] max-h-[120px]"} `}

@@ -3,6 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function BigNewsCard({ article }) {
+  const words = article.description.split(" ");
+  const maxLength = 50;
+  const isLong = words.length > maxLength;
+  const displayDescription = isLong
+    ? words.slice(0, maxLength).join(" ") + "..."
+    : article.description;
+
   return (
     <div className="flex flex-col justify-around  items-center border  border-gray-300 text-gray-800 gap-3 h-full w-full p-5">
       <div className="flex sm:flex-row   flex-col justify-between items-center gap-5">
@@ -16,7 +23,7 @@ export default function BigNewsCard({ article }) {
           />
         </div>
         <div className="flex-2 flex flex-col items-center justify-center ">
-          <p>{article.description}</p>
+          <p>{displayDescription}</p>
         </div>
       </div>
       <h2 className="text-center text-2xl font-medium text-red-800 p-1 hover:text-red-700 cursor-pointer hover:underline">
