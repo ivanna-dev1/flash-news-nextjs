@@ -19,8 +19,8 @@ export default function WeatherCard(props) {
           }`}
         >
           <p>City: Lviv</p>
-          <p>Tuesday</p>
-          <p>07.04.2026</p>
+          <p>{new Date().toLocaleDateString("en-US", { weekday: "long" })}</p>
+          <p>{new Date().toLocaleDateString("uk-UA")}</p>
         </div>
       </div>
 

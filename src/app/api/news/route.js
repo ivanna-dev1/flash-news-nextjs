@@ -11,7 +11,7 @@ export async function GET(request) {
     let data = await response.json();
     // Додаємо перевірку: якщо статей немає, викидаємо помилку з текстом від GNews
     if (!data.articles) {
-      console.warn("Перший ключ не спрацював, пробуємо запасний...");
+      console.warn("The first key didn't work, we're trying a spare one...");
       apiKey = process.env.GNEWS_API_KEY_2;
       url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=100&apikey=${apiKey}`;
 
@@ -21,7 +21,7 @@ export async function GET(request) {
     // Остання перевірка: якщо і другий ключ не допоміг
     if (!data.articles) {
       return NextResponse.json(
-        { error: "Всі ліміти вичерпано" },
+        { error: "All limits have been exceeded" },
         { status: 429 },
       );
     }
@@ -34,6 +34,7 @@ export async function GET(request) {
       subCategory: "Latest",
       article: item.content || item.description,
       source: item.source.name,
+      url: item.url,
     }));
     return NextResponse.json(articles);
   } catch (error) {

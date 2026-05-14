@@ -14,7 +14,7 @@ export default async function CategoryPage({ params, searchParams }) {
 
   const sp = await searchParams;
   const currentPage = Number(sp.page) || 1;
-  const itemsPerPage = 30;
+  const itemsPerPage = 4;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 

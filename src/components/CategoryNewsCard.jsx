@@ -22,7 +22,7 @@ export default function CategoryNewsCard({ article, isBig }) {
             className={`float-left mr-3 mb-1 ${isBig ? "w-[170px] max-h-[170px] " : "w-[120px] max-h-[120px]"} `}
           >
             <Image
-              src={article.image}
+              src={article.image || "/mainIMG_2.jpg"}
               alt="FlashNews"
               width={isBig ? 170 : 120}
               height={isBig ? 170 : 120}

@@ -15,7 +15,7 @@ export default function BigNewsCard({ article }) {
       <div className="flex sm:flex-row   flex-col justify-between items-center gap-5">
         <div className="flex-1 flex  ">
           <Image
-            src={article.image}
+            src={article.image || "/mainIMG_2.jpg"}
             alt="FlashNews"
             width={200}
             height={200}

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default function Breadcrumbs({ category, subCategory }) {
+export default function Breadcrumbs({ category, subCategory, title }) {
   return (
     <div className="flex flex-row gap-2 text-gray-700 text-md ">
       <Link
@@ -10,26 +10,34 @@ export default function Breadcrumbs({ category, subCategory }) {
       >
         Home
       </Link>
-      <p> / </p>
+      {/* <p> / </p> */}
       {category && (
         <>
+          <p> / </p>
           <Link
-            className="hover:underline cursor-pointer hover:text-blue-900"
-            href={category}
+            className="hover:underline cursor-pointer hover:text-blue-900 capitalize"
+            href={`/${category.toLowerCase()}`}
           >
             {category}
           </Link>
-          <p> / </p>
+          {/* <p> / </p> */}
         </>
       )}
-      {subCategory && (
+      {subCategory && subCategory !== "Latest" && (
         <>
+          <p> / </p>
           <Link
-            className="hover:underline cursor-pointer hover:text-blue-900"
-            href={`${category}/${subCategory}`}
+            className="hover:underline cursor-pointer hover:text-blue-900 capitalize"
+            href={`/${category.toLowerCase()}/${subCategory.toLowerCase()}`}
           >
             {subCategory}
           </Link>
+        </>
+      )}
+      {title && (
+        <>
+          <p> / </p>
+          <p className="italic text-gray-500 truncate capitalize">{title}</p>
         </>
       )}
     </div>

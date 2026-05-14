@@ -17,7 +17,8 @@ export default async function NewsPage({ params }) {
     <div className="gap-2 mx-5 ">
       <Breadcrumbs
         category={article.category}
-        subCategory={article.subcategory}
+        subCategory={article.subCategory}
+        title={article.title}
       />
       <h1 className="text-center text-3xl font-medium text-red-800 mt-5">
         {article.title}
@@ -25,7 +26,7 @@ export default async function NewsPage({ params }) {
       <div className="my-5 ">
         <Image
           className=" float-left mr-6 mb-4 "
-          src={article.image}
+          src={article.image || "/mainIMG_2.jpg"}
           alt="FlashNews"
           width={300}
           height={300}

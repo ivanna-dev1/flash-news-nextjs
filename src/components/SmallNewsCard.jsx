@@ -9,7 +9,12 @@ export default function SmallNewsCard({ article }) {
         ⭐️
       </button>
       <div className="w-fit h-fit ">
-        <Image src={article.image} alt="FlashNews" width={100} height={100} />
+        <Image
+          src={article.image || "/mainIMG_2.jpg"}
+          alt="FlashNews"
+          width={100}
+          height={100}
+        />
       </div>
       <h2 className="text-center text-blue-800 p-1 hover:text-blue-800 cursor-pointer hover:underline">
         <Link href={`/news/${article.id}`}>{article.title}</Link>

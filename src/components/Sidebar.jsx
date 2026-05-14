@@ -21,12 +21,12 @@ export default function Sidebar() {
       <WeatherCard image="/weatherIMG.webp" />
       {isHomePage
         ? news
-            .slice(0, 30)
+            .slice(0, 10)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))
         : news
-            .slice(0, 15)
+            .slice(0, 3)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))}

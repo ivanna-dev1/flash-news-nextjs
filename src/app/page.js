@@ -7,7 +7,7 @@ export default async function Home({ searchParams }) {
   const news = Array.isArray(newsData) ? newsData : [];
 
   const currentPage = Number(sp.page) || 1;
-  const itemsPerPage = 30;
+  const itemsPerPage = 4;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentNews = news.slice(startIndex, endIndex);
