@@ -12,7 +12,7 @@ export default function CategoryNewsCard({ article, isBig }) {
 
   return (
     <div
-      className={`flex flex-col justify-between  items-center border  border-blue-100 text-gray-800 gap-4 h-[300px] w-full py-4 px-3  ${
+      className={`flex flex-col justify-between  items-center border  border-gray-100 text-gray-800 gap-4 h-[300px] w-full py-4 px-3  ${
         isBig ? "md:col-span-3" : "md:col-span-2"
       }`}
     >
@@ -41,7 +41,7 @@ export default function CategoryNewsCard({ article, isBig }) {
           Поширити
         </button>
         <button className="border border-gray-500 hover:bg-gray-100 cursor-pointer  px-2 py-1 rounded">
-          ➕
+          ⭐️
         </button>
       </div>
     </div>

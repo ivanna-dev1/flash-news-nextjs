@@ -11,7 +11,7 @@ export default function BigNewsCard({ article }) {
     : article.description;
 
   return (
-    <div className="flex flex-col justify-around  items-center border  border-gray-300 text-gray-800 gap-3 h-full w-full p-5">
+    <div className="flex flex-col justify-around  items-center border  border-gray-100 text-gray-800 gap-3 h-full w-full p-5">
       <div className="flex sm:flex-row   flex-col justify-between items-center gap-5">
         <div className="flex-1 flex  ">
           <Image
@@ -37,7 +37,7 @@ export default function BigNewsCard({ article }) {
           Поширити
         </button>
         <button className="border border-gray-500 hover:bg-gray-100 cursor-pointer  px-4 py-2 rounded">
-          ➕
+          ⭐️
         </button>
       </div>
     </div>

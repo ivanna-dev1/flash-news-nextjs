@@ -7,7 +7,7 @@ export default function WeatherCard(props) {
   const isHomePage = pathname === "/";
   return (
     <div
-      className={`border border-gray-300 p-2 flex flex-col justify-around items-center ${isHomePage ? "h-48 col-span-2" : "min-w-44 h-48 gap-1"}`}
+      className={`border border-gray-100 p-2 flex flex-col justify-around items-center ${isHomePage ? "h-48 col-span-2" : "min-w-44 h-48 gap-1"}`}
     >
       <div>
         <h1 className="text-center text-xl font-medium">Local Weather</h1>
