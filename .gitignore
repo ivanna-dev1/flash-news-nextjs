@@ -43,3 +43,5 @@ next-env.d.ts
 file.md
 /.agents/
 conception.md
+projectsText/ 
+.claude/
