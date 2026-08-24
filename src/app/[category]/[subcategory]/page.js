@@ -10,16 +10,16 @@ export default async function CategoryPage({ params, searchParams }) {
   );
   const sp = await searchParams;
   const currentPage = Number(sp.page) || 1;
-  const itemsPerPage = 20;
+  const itemsPerPage = 4;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentNews = filteredNews.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
   return (
     <div>
-      <Breadcrumbs category={category} subcategory={subcategory} />
-      <h3 className=" text-3xl font-semibold text-center text-gray-700 p-1 mb-5 ">
-        {subcategory} News
+      <Breadcrumbs category={category} subCategory={subcategory} />
+      <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5 capitalize">
+        {subcategory} news
       </h3>
       <div className="md:grid grid-cols-5  flex-1  gap-3 items-start content-start ">
         {currentNews.map((article, index) => (
@@ -34,7 +34,7 @@ export default async function CategoryPage({ params, searchParams }) {
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
-          basePath={`/${category}/${subcategory}`}
+          basePath={`/${category}/${subCategory}`}
         />
       )}
     </div>
