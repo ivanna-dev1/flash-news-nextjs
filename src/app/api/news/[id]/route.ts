@@ -1,26 +1,27 @@
 import { NextResponse } from "next/server";
 
-export async function GET(request, { params }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   let apiKey = process.env.GNEWS_API_KEY;
-  let url =
-    "https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=10&apikey=" +
-    apiKey;
+
   try {
     const { id } = await params;
+    const category = id.split("-")[0];
+    let url =
+      `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${apiKey}`;
     let response = await fetch(url);
     let data = await response.json();
 
     if (!data.articles) {
       console.warn("The first key didn't work, we're trying a spare one...");
       apiKey = process.env.GNEWS_API_KEY_2;
-      url = `https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=10&apikey=${apiKey}`;
+      url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${apiKey}`;
 
       response = await fetch(url);
       data = await response.json();
     }
 
     const articles = data.articles.map((item, index) => ({
-      id: index + 1,
+      id: category.toLowerCase() + "-" + (index + 1),
       title: item.title,
       description: item.description,
       image: item.image,
@@ -30,7 +31,7 @@ export async function GET(request, { params }) {
       source: item.source.name,
       url: item.url,
     }));
-    const article = articles.find((item) => item.id === Number(id));
+    const article = articles.find((item) => item.id === id);
 
     if (!article) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });

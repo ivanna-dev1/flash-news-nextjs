@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category") || "general";
   let apiKey = process.env.GNEWS_API_KEY;
@@ -26,7 +26,7 @@ export async function GET(request) {
       );
     }
     const articles = data.articles.map((item, index) => ({
-      id: index + 1,
+      id: category.toLowerCase() + "-" + (index + 1),
       title: item.title,
       description: item.description,
       image: item.image || "/mainIMG_2.jpg",

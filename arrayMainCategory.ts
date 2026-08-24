@@ -1,4 +1,6 @@
-export const newsCategories = [
+import { CategoryType } from "./src/types/news";
+
+export const newsCategories: CategoryType[] = [
   {
     id: 1,
     name: "General",

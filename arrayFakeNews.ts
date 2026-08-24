@@ -1,5 +1,7 @@
-export const news = [
-  // GENERAL
+import { ArticleType } from "./src/types/news";
+
+export const news: ArticleType[] = [
+  // GENERAL 
   {
     id: 1,
     title: "Major global events shaping the week",
