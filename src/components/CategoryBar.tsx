@@ -1,4 +1,3 @@
-import React from "react";
 import { newsCategories } from "../../arrayMainCategory";
 import Link from "next/link";
 

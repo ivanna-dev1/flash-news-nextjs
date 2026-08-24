@@ -1,8 +1,13 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArticleType } from "@/types/news";
 
-export default function CategoryNewsCard({ article, isBig }) {
+interface CategoryNewsCardProps {
+  article: ArticleType;
+  isBig: boolean;
+}
+
+export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardProps) {
   const words = article.description.split(" ");
   const maxLength = isBig ? 30 : 10;
   const isLong = words.length > maxLength;
@@ -12,9 +17,8 @@ export default function CategoryNewsCard({ article, isBig }) {
 
   return (
     <div
-      className={`flex flex-col justify-between  items-center border  border-gray-100 text-gray-800 gap-4 h-[300px] w-full py-4 px-3  ${
-        isBig ? "md:col-span-3" : "md:col-span-2"
-      }`}
+      className={`flex flex-col justify-between  items-center border  border-gray-100 text-gray-800 gap-4 h-[300px] w-full py-4 px-3  ${isBig ? "md:col-span-3" : "md:col-span-2"
+        }`}
     >
       <div className="flex   flex-col justify-between   gap-2 h-full">
         <div className="  gap-3 text-md ">

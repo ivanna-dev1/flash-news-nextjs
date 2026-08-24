@@ -1,6 +1,11 @@
 import Link from "next/link";
 
-export default function Pagination({ totalPages, currentPage, basePath }) {
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  basePath: string;
+}
+export default function Pagination({ totalPages, currentPage, basePath }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
@@ -20,11 +25,10 @@ export default function Pagination({ totalPages, currentPage, basePath }) {
           <li key={page}>
             <Link
               href={`${basePath}?page=${page}`}
-              className={`px-4 py-2 rounded  ${
-                currentPage === page
+              className={`px-4 py-2 rounded  ${currentPage === page
                   ? "bg-blue-900/90 text-white"
                   : "bg-gray-200 text-black"
-              }`}
+                }`}
             >
               {page}
             </Link>

@@ -1,8 +1,12 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArticleType } from "@/types/news";
 
-export default function SmallNewsCard({ article }) {
+interface SmallNewsCardProps {
+  article: ArticleType;
+}
+
+export default function SmallNewsCard({ article }: SmallNewsCardProps) {
   return (
     <div className="relative flex flex-col justify-around items-center border  text-gray-800 text-xs border-gray-100 p-2 h-44 min-w-32">
       <button className="absolute top-1  right-1  z-10 border border-gray-700 text-black text-lg font-bold  text-center px-2 rounded bg-white/70 hover:bg-white/90 hover:text-black cursor-pointer">

@@ -1,7 +1,11 @@
-import React from "react";
 import Link from "next/link";
 
-export default function Breadcrumbs({ category, subCategory, title }) {
+interface BreadcrumbsProps {
+  category?: string;
+  subCategory?: string;
+  title?: string;
+}
+export default function Breadcrumbs({ category, subCategory, title }: BreadcrumbsProps) {
   return (
     <div className="flex flex-row gap-2 text-gray-700 text-md ">
       <Link

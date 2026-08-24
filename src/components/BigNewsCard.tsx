@@ -1,8 +1,12 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArticleType } from "@/types/news";
 
-export default function BigNewsCard({ article }) {
+interface BigNewsCardProps {
+  article: ArticleType;
+}
+
+export default function BigNewsCard({ article }: BigNewsCardProps) {
   const words = article.description.split(" ");
   const maxLength = 50;
   const isLong = words.length > maxLength;
@@ -19,7 +23,7 @@ export default function BigNewsCard({ article }) {
             alt="FlashNews"
             width={200}
             height={200}
-            // className="float-left mr-6 mb-4 rounded-lg "
+          // className="float-left mr-6 mb-4 rounded-lg "
           />
         </div>
         <div className="flex-2 flex flex-col items-center justify-center ">
