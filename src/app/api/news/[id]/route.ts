@@ -30,7 +30,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
       article: item.content || item.description,
       source: item.source.name,
       url: item.url,
-    }));
+    }))
     const article = articles.find((item) => item.id === id);
 
     if (!article) {
