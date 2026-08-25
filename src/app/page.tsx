@@ -1,6 +1,10 @@
 import BigNewsCard from "@/components/BigNewsCard";
 import Pagination from "@/components/Pagination";
-export default async function Home({ searchParams }) {
+import type { ArticleType } from "@/types/news";
+interface HomeProps {
+  searchParams: Promise<{ page: string }>;
+}
+export default async function Home({ searchParams }: HomeProps) {
   const sp = await searchParams;
   const response = await fetch("http://localhost:3000/api/news");
   const newsData = await response.json();

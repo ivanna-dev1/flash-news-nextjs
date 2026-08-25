@@ -1,8 +1,10 @@
-import React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-export default function WeatherCard(props) {
+interface WeatherCardProps {
+  image: string;
+}
+export default function WeatherCard({ image }: WeatherCardProps) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   return (
@@ -12,11 +14,10 @@ export default function WeatherCard(props) {
       <div>
         <h1 className="text-center text-xl font-medium">Local Weather</h1>
         <div
-          className={`flex flex-row flex-wrap items-center  ${
-            isHomePage
-              ? "text-md gap-3 justify-around"
-              : "text-sm gap-1 justify-center"
-          }`}
+          className={`flex flex-row flex-wrap items-center  ${isHomePage
+            ? "text-md gap-3 justify-around"
+            : "text-sm gap-1 justify-center"
+            }`}
         >
           <p>City: Lviv</p>
           <p>{new Date().toLocaleDateString("en-US", { weekday: "long" })}</p>
@@ -29,7 +30,7 @@ export default function WeatherCard(props) {
       >
         <div className="  w-fit h-fit">
           <Image
-            src={props.image}
+            src={image}
             alt="Weather"
             width={isHomePage ? 100 : 70}
             height={isHomePage ? 100 : 70}
