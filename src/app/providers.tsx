@@ -13,5 +13,5 @@ export default function Providers({ children }: ProvidersProps) {
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  );
+  )
 }
