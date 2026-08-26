@@ -4,7 +4,14 @@ import CategoryNewsCard from "@/components/CategoryNewsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
 import useNews from "@/hooks/useNews";
-export default async function CategoryPage({ params, searchParams }) {
+
+interface CategoryPageProps {
+  params: Promise<{ category: string }>;
+  searchParams: Promise<{ page: string }>;
+
+}
+
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { category } = await params;
   const response = await fetch(
     `http://localhost:3000/api/news?category=${category}`,
