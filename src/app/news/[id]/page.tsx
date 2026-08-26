@@ -2,7 +2,11 @@
 import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export default async function NewsPage({ params }) {
+interface NewsPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function NewsPage({ params }: NewsPageProps) {
   const { id } = await params;
   const response = await fetch(`http://localhost:3000/api/news/${id}`);
   const article = await response.json();

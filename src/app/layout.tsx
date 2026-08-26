@@ -3,8 +3,13 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CategoryBar from "@/components/CategoryBar";
-import Providers from "./providers.js";
-import Sidebar from "@/components/Sidebar.jsx";
+import Providers from "./providers";
+import Sidebar from "@/components/Sidebar";
+import { ReactNode } from "react";
+
+interface RootLayoutProps {
+  children: ReactNode;
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +21,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
