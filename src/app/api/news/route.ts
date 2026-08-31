@@ -38,7 +38,7 @@ export async function GET(request: Request) {
       );
     }
     const articles = data.response.results.map((item: any) => ({
-      id: item.id,
+      id: encodeURIComponent(item.id),
       title: item.webTitle,
       description: item.fields?.trailText,
       image: item.fields?.thumbnail || "/mainIMG_2.jpg",
