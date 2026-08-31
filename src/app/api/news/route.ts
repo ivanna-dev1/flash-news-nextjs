@@ -23,6 +23,7 @@ export async function GET(request: Request) {
       return NextResponse.json(
         { error: "All limits have been exceeded" },
         { status: 429 },
+
       );
     }
     const articles = data.articles.map((item, index) => ({
