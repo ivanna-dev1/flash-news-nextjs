@@ -9,7 +9,7 @@ export async function GET() {
 
   try {
     const url = `https://content.guardianapis.com/search?order-by=newest&show-fields=thumbnail,trailText,bodyText&api-key=${apiKey}`;
-    
+
     const response = await fetch(url);
     const data = await response.json();
 
