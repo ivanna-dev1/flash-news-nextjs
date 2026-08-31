@@ -4,6 +4,7 @@ import { ArticleType } from "@/types/news";
 
 interface BigNewsCardProps {
   article: ArticleType;
+
 }
 
 export default function BigNewsCard({ article }: BigNewsCardProps) {
