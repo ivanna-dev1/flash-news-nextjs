@@ -1,0 +1,14 @@
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  const apiKey = process.env.GUARDIAN_API_KEY;
+  const url = `https://content.guardianapis.com/search?q=debate&show-fields=all&api-key=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to fetch from Guardian" }, { status: 500 });
+  }
+}

@@ -1,40 +1,52 @@
+
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category") || "general";
-  let apiKey = process.env.GNEWS_API_KEY;
-  let url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=100&apikey=${apiKey}`;
+
+  const categoryMapping: Record<string, string> = {
+    general: "",
+    sports: "sport",
+    entertainment: "culture",
+  };
+
+  const guardianSection = categoryMapping[category.toLowerCase()] !== undefined ? categoryMapping[category.toLowerCase()] : category.toLowerCase();
+
+  let apiKey = process.env.GUARDIAN_API_KEY;
+  const sectionParam = guardianSection ? `section=${guardianSection}&` : "";
+  let url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
 
   try {
     let response = await fetch(url);
     let data = await response.json();
     // Додаємо перевірку: якщо статей немає, викидаємо помилку з текстом від GNews
-    if (!data.articles) {
+    if (!data.response || !data.response.results) {
       console.warn("The first key didn't work, we're trying a spare one...");
-      apiKey = process.env.GNEWS_API_KEY_2;
-      url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=100&apikey=${apiKey}`;
+      apiKey = process.env.GUARDIAN_API_KEY_2;
+      url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
 
       response = await fetch(url);
       data = await response.json();
     }
     // Остання перевірка: якщо і другий ключ не допоміг
-    if (!data.articles) {
+    if (!data.response || !data.response.results) {
       return NextResponse.json(
         { error: "All limits have been exceeded" },
         { status: 429 },
       );
     }
-    const articles = data.articles.map((item, index) => ({
-      id: category.toLowerCase() + "-" + (index + 1),
-      title: item.title,
-      description: item.description,
-      image: item.image || "/mainIMG_2.jpg",
+    const articles = data.response.results.map((item: any) => ({
+      id: item.id,
+      title: item.webTitle,
+      description: item.fields?.trailText,
+      image: item.fields?.thumbnail || "/mainIMG_2.jpg",
       category: category.charAt(0).toUpperCase() + category.slice(1),
-      subCategory: "Latest",
-      article: item.content || item.description,
-      source: item.source.name,
-      url: item.url,
+      subcategory: "Latest",
+      article: item.fields?.body || item.fields?.trailText,
+      source: { name: "The Guardian", url: "https://www.theguardian.com" },
+      url: item.webUrl,
+      publishedAt: item.webPublicationDate,
     }));
     return NextResponse.json(articles);
   } catch (error) {
