@@ -4,7 +4,7 @@ export interface ArticleType {
     description: string;
     image: string;
     category: string;
-    subcategory?: string;
+    tags?: string[];
     article?: string;
     url?: string;
     publishedAt?: string;
@@ -17,7 +17,4 @@ export interface CategoryType {
     slug: string;
     href: string;
 }
-
-
-
 

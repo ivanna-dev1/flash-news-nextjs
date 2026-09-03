@@ -1,0 +1,430 @@
+{
+  "metadata": {
+    "source": "The Guardian Open Platform API",
+    "endpoint": "https://content.guardianapis.com/sections",
+    "total_sections": 81,
+    "data_collected": "2026-09-01",
+    "method": "REST API queries with pillarName extraction"
+  },
+  "pillars": {
+    "News": [
+      {
+        "id": "australia-news",
+        "webTitle": "Australia news",
+        "pillarName": "News"
+      },
+      {
+        "id": "business",
+        "webTitle": "Business",
+        "pillarName": "News"
+      },
+      {
+        "id": "business-to-business",
+        "webTitle": "Business to business",
+        "pillarName": "News"
+      },
+      {
+        "id": "cardiff",
+        "webTitle": "Cardiff",
+        "pillarName": "News"
+      },
+      {
+        "id": "cities",
+        "webTitle": "Cities",
+        "pillarName": "News"
+      },
+      {
+        "id": "community",
+        "webTitle": "Community",
+        "pillarName": "News"
+      },
+      {
+        "id": "culture-network",
+        "webTitle": "Culture Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "culture-professionals-network",
+        "webTitle": "Culture professionals network",
+        "pillarName": "News"
+      },
+      {
+        "id": "edinburgh",
+        "webTitle": "Edinburgh",
+        "pillarName": "News"
+      },
+      {
+        "id": "education",
+        "webTitle": "Education",
+        "pillarName": "News"
+      },
+      {
+        "id": "environment",
+        "webTitle": "Environment",
+        "pillarName": "News"
+      },
+      {
+        "id": "extra",
+        "webTitle": "Extra",
+        "pillarName": "News"
+      },
+      {
+        "id": "global-development",
+        "webTitle": "Global development",
+        "pillarName": "News"
+      },
+      {
+        "id": "global-development-professionals-network",
+        "webTitle": "Global Development Professionals Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "government-computing-network",
+        "webTitle": "Guardian Government Computing",
+        "pillarName": "News"
+      },
+      {
+        "id": "guardian-professional",
+        "webTitle": "Guardian Professional",
+        "pillarName": "News"
+      },
+      {
+        "id": "healthcare-network",
+        "webTitle": "Healthcare Professionals Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "help",
+        "webTitle": "Help",
+        "pillarName": "News"
+      },
+      {
+        "id": "higher-education-network",
+        "webTitle": "Higher Education Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "housing-network",
+        "webTitle": "Housing Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "inequality",
+        "webTitle": "Inequality",
+        "pillarName": "News"
+      },
+      {
+        "id": "info",
+        "webTitle": "Info",
+        "pillarName": "News"
+      },
+      {
+        "id": "jobsadvice",
+        "webTitle": "Jobs",
+        "pillarName": "News"
+      },
+      {
+        "id": "katine",
+        "webTitle": "Katine",
+        "pillarName": "News"
+      },
+      {
+        "id": "law",
+        "webTitle": "Law",
+        "pillarName": "News"
+      },
+      {
+        "id": "leeds",
+        "webTitle": "Leeds",
+        "pillarName": "News"
+      },
+      {
+        "id": "local",
+        "webTitle": "Local",
+        "pillarName": "News"
+      },
+      {
+        "id": "local-government-network",
+        "webTitle": "Local Leaders Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "media",
+        "webTitle": "Media",
+        "pillarName": "News"
+      },
+      {
+        "id": "media-network",
+        "webTitle": "Media Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "membership",
+        "webTitle": "Membership",
+        "pillarName": "News"
+      },
+      {
+        "id": "news",
+        "webTitle": "News",
+        "pillarName": "News"
+      },
+      {
+        "id": "politics",
+        "webTitle": "Politics",
+        "pillarName": "News"
+      },
+      {
+        "id": "public-leaders-network",
+        "webTitle": "Public Leaders Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "science",
+        "webTitle": "Science",
+        "pillarName": "News"
+      },
+      {
+        "id": "small-business-network",
+        "webTitle": "Guardian Small Business Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "social-care-network",
+        "webTitle": "Social Care Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "social-enterprise-network",
+        "webTitle": "Social Enterprise Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "society",
+        "webTitle": "Society",
+        "pillarName": "News"
+      },
+      {
+        "id": "society-professionals",
+        "webTitle": "Society Professionals",
+        "pillarName": "News"
+      },
+      {
+        "id": "teacher-network",
+        "webTitle": "Teacher Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "technology",
+        "webTitle": "Technology",
+        "pillarName": "News"
+      },
+      {
+        "id": "theguardian",
+        "webTitle": "From the Guardian",
+        "pillarName": "News"
+      },
+      {
+        "id": "theobserver",
+        "webTitle": "From the Observer",
+        "pillarName": "News"
+      },
+      {
+        "id": "uk-news",
+        "webTitle": "UK news",
+        "pillarName": "News"
+      },
+      {
+        "id": "us-news",
+        "webTitle": "US news",
+        "pillarName": "News"
+      },
+      {
+        "id": "voluntary-sector-network",
+        "webTitle": "Voluntary Sector Network",
+        "pillarName": "News"
+      },
+      {
+        "id": "weather",
+        "webTitle": "Weather",
+        "pillarName": "News"
+      },
+      {
+        "id": "women-in-leadership",
+        "webTitle": "Women in Leadership",
+        "pillarName": "News"
+      },
+      {
+        "id": "world",
+        "webTitle": "World news",
+        "pillarName": "News"
+      }
+    ],
+    "Opinion": [
+      {
+        "id": "commentisfree",
+        "webTitle": "Opinion",
+        "pillarName": "Opinion"
+      }
+    ],
+    "Sport": [
+      {
+        "id": "football",
+        "webTitle": "Football",
+        "pillarName": "Sport"
+      },
+      {
+        "id": "sport",
+        "webTitle": "Sport",
+        "pillarName": "Sport"
+      }
+    ],
+    "Arts": [
+      {
+        "id": "artanddesign",
+        "webTitle": "Art and design",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "books",
+        "webTitle": "Books",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "childrens-books-site",
+        "webTitle": "Children's books",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "culture",
+        "webTitle": "Culture",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "film",
+        "webTitle": "Film",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "games",
+        "webTitle": "Games",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "music",
+        "webTitle": "Music",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "stage",
+        "webTitle": "Stage",
+        "pillarName": "Arts"
+      },
+      {
+        "id": "tv-and-radio",
+        "webTitle": "Television & radio",
+        "pillarName": "Arts"
+      }
+    ],
+    "Lifestyle": [
+      {
+        "id": "crosswords",
+        "webTitle": "Crosswords",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "fashion",
+        "webTitle": "Fashion",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "food",
+        "webTitle": "Food",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "lifeandstyle",
+        "webTitle": "Life and style",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "money",
+        "webTitle": "Money",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "thefilter",
+        "webTitle": "The Filter",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "thefilter-us",
+        "webTitle": "The Filter US",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "travel",
+        "webTitle": "Travel",
+        "pillarName": "Lifestyle"
+      },
+      {
+        "id": "wellness",
+        "webTitle": "Wellness",
+        "pillarName": "Lifestyle"
+      }
+    ],
+    "Special": [
+      {
+        "id": "about",
+        "webTitle": "About",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "animals-farmed",
+        "webTitle": "Animals farmed",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "guardian-foundation",
+        "webTitle": "Guardian Foundation",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "working-in-development",
+        "webTitle": "Working in development",
+        "pillarName": "Unknown"
+      }
+    ],
+    "Empty": [
+      {
+        "id": "better-business",
+        "webTitle": "Better Business",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "enterprise-network",
+        "webTitle": "Guardian Enterprise Network",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "puzzles",
+        "webTitle": "Puzzles",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "search",
+        "webTitle": "Search",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "travel/offers",
+        "webTitle": "Guardian holiday offers",
+        "pillarName": "Unknown"
+      },
+      {
+        "id": "us-wellness",
+        "webTitle": "Wellness (Do NOT use)",
+        "pillarName": "Unknown"
+      }
+    ]
+  }
+}

@@ -1,19 +1,20 @@
-import { newsCategories } from "../../arrayMainCategory";
+import { navCategories } from "../../arrayCategory";
 import Link from "next/link";
 
 const CategoryBar = () => {
   return (
     <div className="flex flex-row justify-around  overflow-x-auto gap-4 bg-gray-400 text-white p-4 border-gray-700">
-      {newsCategories.map((category) => (
+      {navCategories.map((category) => (
         <Link
           className="hover:text-blue-900 text-lg transition-colors duration-300"
-          key={category.id}
-          href={category.href}
+          key={category.slug}
+          href={`/${category.slug}`}
         >
           {category.name}
         </Link>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   );
 };
 

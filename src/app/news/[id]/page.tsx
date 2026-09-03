@@ -8,7 +8,7 @@ interface NewsPageProps {
 
 export default async function NewsPage({ params }: NewsPageProps) {
   const { id } = await params;
-  const response = await fetch(`http://localhost:3000/api/news/${id}`);
+  const response = await fetch(`http://localhost:3000/api/news/${encodeURIComponent(id)}`);
   const article = await response.json();
   if (!article || article.error)
     return <div className="text-red-500">Error fetching news</div>;
@@ -35,7 +35,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           width={300}
           height={300}
         />
-        <p className="text-lg text-gray-700 ">{article.article}</p>
+        <div className="text-lg text-gray-700 " dangerouslySetInnerHTML={{ __html: article.article }} />
       </div>
     </div>
   );

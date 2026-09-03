@@ -1,20 +1,20 @@
 
 import { NextResponse } from "next/server";
-
+import { navCategories } from "../../../../arrayCategory";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category") || "general";
 
-  const categoryMapping: Record<string, string> = {
-    general: "",
-    sports: "sport",
-    entertainment: "culture",
-  };
-
-  const guardianSection = categoryMapping[category.toLowerCase()] !== undefined ? categoryMapping[category.toLowerCase()] : category.toLowerCase();
+  const currentCategory = navCategories.find((c) => c.slug === category.toLowerCase());
 
   let apiKey = process.env.GUARDIAN_API_KEY;
-  const sectionParam = guardianSection ? `section=${guardianSection}&` : "";
+  let sectionParam = ""
+  if (currentCategory && currentCategory.query) {
+    sectionParam = `${currentCategory.query.type}=${currentCategory.query.values.join("|")}&`
+  } else {
+    sectionParam = ""
+  }
+
   let url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
 
   try {
