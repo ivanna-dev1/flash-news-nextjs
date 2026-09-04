@@ -11,12 +11,6 @@ export interface ArticleType {
     source?: { name: string; url?: string };
 }
 
-export interface MainCategoryType {
-    id: string | number;
-    name: string;
-    slug: string;
-    href: string;
-}
 export interface QueryParamsType {
     type: QueryType;
     values: string[];

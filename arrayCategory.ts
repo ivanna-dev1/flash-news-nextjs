@@ -5,10 +5,11 @@ import { CategoryType } from "./src/types/news";
  * зараз збирає з `arrayFakeNews.ts`.
  *
  * ПОРЯДОК ВАЖЛИВИЙ:
- *   - перші 7 записів = CategoryBar (ті самі категорії, що в `arrayMainCategory`, без General)
- *     -> у CategoryBar беремо `navCategories.slice(0, 7)`
+ *   - перші 8 записів = CategoryBar -> у CategoryBar беремо `navCategories.slice(0, 8)`
  *   - усі 10 = Navbar (як зараз)
- *   - General стоїть останнім і слугує "кошиком" для секцій, які поки не розподілені
+ *   - General стоїть першим (кошик для нерозподілених секцій, але видний одразу),
+ *     далі World, Business, Technology, Politics, Science, Sports, Entertainment
+ *   - Health винесено за межі перших 8 — лишається тільки в Navbar
  *
  * ЯК ЧИТАТИ query:
  *   { type: "section", values: [...] } -> ?section=...
@@ -25,7 +26,23 @@ import { CategoryType } from "./src/types/news";
  * Усі значення type: "section" звірені з реальним списком секцій Guardian (`section_ids.txt`).
  */
 export const navCategories: CategoryType[] = [
-  // ── 1-7: CategoryBar ────────────────────────────────────────────────
+  // ── 1-8: CategoryBar ────────────────────────────────────────────────
+  {
+    name: "General",
+    slug: "general",
+    // без query — усі свіжі новини без фільтра за секцією
+    // Тимчасовий "кошик": сюди складені реальні секції Guardian, які поки не
+    // розподілені по категоріях нижче. Розберемо і перерозподілимо пізніше.
+    subcategories: [
+      // { name: "Top", slug: "top" },           // секції немає в Guardian
+      // { name: "Breaking", slug: "breaking" }, // секції немає в Guardian
+      { name: "Opinion", slug: "opinion", query: { type: "section", values: ["commentisfree"] } },
+      { name: "Education", slug: "education", query: { type: "section", values: ["education"] } },
+      { name: "Media", slug: "media", query: { type: "section", values: ["media"] } },
+      { name: "Cities", slug: "cities", query: { type: "section", values: ["cities"] } },
+      { name: "Global development", slug: "global-development", query: { type: "section", values: ["global-development"] } },
+    ],
+  },
   {
     name: "World",
     slug: "world",
@@ -61,6 +78,17 @@ export const navCategories: CategoryType[] = [
     ],
   },
   {
+    name: "Politics",
+    slug: "politics",
+    query: { type: "section", values: ["politics"] },
+    subcategories: [
+      // { name: "Policy", slug: "policy" },       // секції немає в Guardian
+      // { name: "Elections", slug: "elections" }, // секції немає в Guardian
+      { name: "Law", slug: "law", query: { type: "section", values: ["law"] } },
+      { name: "Inequality", slug: "inequality", query: { type: "section", values: ["inequality"] } },
+    ],
+  },
+  {
     name: "Science",
     slug: "science",
     query: { type: "section", values: ["science"] },
@@ -69,17 +97,6 @@ export const navCategories: CategoryType[] = [
       // { name: "Medicine", slug: "medicine" }, // секції немає в Guardian
       // { name: "Climate", slug: "climate" },   // секції немає; найближче — Environment нижче
       { name: "Environment", slug: "environment", query: { type: "section", values: ["environment"] } },
-    ],
-  },
-  {
-    name: "Health",
-    slug: "health",
-    // Секції "health" у Guardian НЕМАЄ. Використано звірений тег society/health.
-    query: { type: "tag", values: ["society/health"] },
-    subcategories: [
-      { name: "Wellness", slug: "wellness", query: { type: "section", values: ["wellness"] } },
-      // { name: "Medicine", slug: "medicine" }, // секції немає в Guardian
-      { name: "Society", slug: "society", query: { type: "section", values: ["society"] } },
     ],
   },
   {
@@ -109,18 +126,7 @@ export const navCategories: CategoryType[] = [
     ],
   },
 
-  // ── 8-10: тільки Navbar, у CategoryBar не потрапляють ───────────────
-  {
-    name: "Politics",
-    slug: "politics",
-    query: { type: "section", values: ["politics"] },
-    subcategories: [
-      // { name: "Policy", slug: "policy" },       // секції немає в Guardian
-      // { name: "Elections", slug: "elections" }, // секції немає в Guardian
-      { name: "Law", slug: "law", query: { type: "section", values: ["law"] } },
-      { name: "Inequality", slug: "inequality", query: { type: "section", values: ["inequality"] } },
-    ],
-  },
+  // ── 9-10: тільки Navbar, у CategoryBar не потрапляють ───────────────
   {
     name: "Lifestyle",
     slug: "lifestyle",
@@ -132,19 +138,14 @@ export const navCategories: CategoryType[] = [
     ],
   },
   {
-    name: "General",
-    slug: "general",
-    // без query — усі свіжі новини без фільтра за секцією
-    // Тимчасовий "кошик": сюди складені реальні секції Guardian, які поки не
-    // розподілені по категоріях вище. Розберемо і перерозподілимо пізніше.
+    name: "Health",
+    slug: "health",
+    // Секції "health" у Guardian НЕМАЄ. Використано звірений тег society/health.
+    query: { type: "tag", values: ["society/health"] },
     subcategories: [
-      // { name: "Top", slug: "top" },           // секції немає в Guardian
-      // { name: "Breaking", slug: "breaking" }, // секції немає в Guardian
-      { name: "Opinion", slug: "opinion", query: { type: "section", values: ["commentisfree"] } },
-      { name: "Education", slug: "education", query: { type: "section", values: ["education"] } },
-      { name: "Media", slug: "media", query: { type: "section", values: ["media"] } },
-      { name: "Cities", slug: "cities", query: { type: "section", values: ["cities"] } },
-      { name: "Global development", slug: "global-development", query: { type: "section", values: ["global-development"] } },
+      { name: "Wellness", slug: "wellness", query: { type: "section", values: ["wellness"] } },
+      // { name: "Medicine", slug: "medicine" }, // секції немає в Guardian
+      { name: "Society", slug: "society", query: { type: "section", values: ["society"] } },
     ],
   },
 ];

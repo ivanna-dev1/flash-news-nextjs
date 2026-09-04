@@ -12,7 +12,7 @@ const CategoryBar = () => {
         >
           {category.name}
         </Link>
-      ))
+      )).slice(1, 8)
       }
     </div >
   );
