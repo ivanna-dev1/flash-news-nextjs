@@ -11,10 +11,24 @@ export interface ArticleType {
     source?: { name: string; url?: string };
 }
 
-export interface CategoryType {
+export interface MainCategoryType {
     id: string | number;
     name: string;
     slug: string;
     href: string;
 }
+export interface QueryParamsType {
+    type: QueryType;
+    values: string[];
+}
+export type QueryType = "section" | "tag";
 
+export interface SubCategoryType {
+    name: string;
+    slug: string;
+    query?: QueryParamsType;
+}
+
+export interface CategoryType extends SubCategoryType {
+    subcategories: SubCategoryType[];
+}

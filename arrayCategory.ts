@@ -1,4 +1,4 @@
-import { NavCategoryType } from "./src/types/news";
+import { CategoryType } from "./src/types/news";
 
 /**
  * Навігація сайту. Замінює `arrayMainCategory.ts` і структуру, яку `Navbar`
@@ -24,7 +24,7 @@ import { NavCategoryType } from "./src/types/news";
  *
  * Усі значення type: "section" звірені з реальним списком секцій Guardian (`section_ids.txt`).
  */
-export const navCategories: NavCategoryType[] = [
+export const navCategories: CategoryType[] = [
   // ── 1-7: CategoryBar ────────────────────────────────────────────────
   {
     name: "World",

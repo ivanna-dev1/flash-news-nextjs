@@ -1,6 +1,6 @@
-import { CategoryType } from "./src/types/news";
+import { MainCategoryType } from "./src/types/news";
 
-export const newsCategories: CategoryType[] = [
+export const newsCategories: MainCategoryType[] = [
   {
     id: 1,
     name: "General",
