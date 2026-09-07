@@ -1,19 +1,26 @@
 
 import { NextResponse } from "next/server";
 import { navCategories } from "../../../../arrayCategory";
+
 export async function GET(request: Request) {
+
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category") || "general";
+  const subcategoryToFind = searchParams.get("subcategory");
 
   const currentCategory = navCategories.find((c) => c.slug === category.toLowerCase());
-
+  const subcategory = currentCategory?.subcategories.find((sub) => sub.slug === subcategoryToFind?.toLowerCase());
   let apiKey = process.env.GUARDIAN_API_KEY;
   let sectionParam = ""
-  if (currentCategory && currentCategory.query) {
+
+  if (subcategory && subcategory.query) {
+    sectionParam = `${subcategory.query.type}=${subcategory.query.values.join("|")}&`
+  } else if (currentCategory && currentCategory.query) {
     sectionParam = `${currentCategory.query.type}=${currentCategory.query.values.join("|")}&`
   } else {
     sectionParam = ""
   }
+
 
   let url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
 

@@ -5,11 +5,13 @@ import { CategoryType } from "./src/types/news";
  * зараз збирає з `arrayFakeNews.ts`.
  *
  * ПОРЯДОК ВАЖЛИВИЙ:
- *   - перші 8 записів = CategoryBar -> у CategoryBar беремо `navCategories.slice(0, 8)`
- *   - усі 10 = Navbar (як зараз)
- *   - General стоїть першим (кошик для нерозподілених секцій, але видний одразу),
- *     далі World, Business, Technology, Politics, Science, Sports, Entertainment
- *   - Health винесено за межі перших 8 — лишається тільки в Navbar
+ *   - усі 10 записів = Navbar
+ *   - CategoryBar = записи з індексами 1-7 -> `navCategories.slice(1, 8)` (7 пунктів)
+ *   - General стоїть ПЕРШИМ (індекс 0) і у CategoryBar свідомо НЕ потрапляє —
+ *     він є лише в Navbar; це "кошик" для нерозподілених секцій
+ *   - у CategoryBar таким чином: World, Business, Technology, Politics,
+ *     Science, Sports, Entertainment
+ *   - Lifestyle і Health (індекси 8-9) — теж лише в Navbar
  *
  * ЯК ЧИТАТИ query:
  *   { type: "section", values: [...] } -> ?section=...
