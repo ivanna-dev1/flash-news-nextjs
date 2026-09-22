@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArticleType } from "@/types/news";
+import type { ArticleType } from "@/types/news";
 
 interface SmallNewsCardProps {
   article: ArticleType;
@@ -23,15 +23,6 @@ export default function SmallNewsCard({ article }: SmallNewsCardProps) {
       <h2 className="text-center text-blue-800 p-1 hover:text-blue-800 cursor-pointer hover:underline">
         <Link href={`/news/${article.id}`}>{article.title}</Link>
       </h2>
-
-      {/* <div className="flex flex-row justify-between items-center">
-        <button className="border border-gray-700 text-black px-2 py-1 rounded ">
-          Читати далі
-        </button>
-        <button className="border border-gray-700 text-black px-2 py-1 rounded">
-          +
-        </button>
-      </div> */}
     </div>
   );
 }

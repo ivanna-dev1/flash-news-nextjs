@@ -5,11 +5,18 @@ import Footer from "@/components/Footer";
 import CategoryBar from "@/components/CategoryBar";
 import Providers from "./providers";
 import Sidebar from "@/components/Sidebar";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import type { Metadata } from "next";
 
 interface RootLayoutProps {
   children: ReactNode;
 }
+
+// "%s" is replaced by the title of each page: "World news | FlashNews".
+export const metadata: Metadata = {
+  title: { template: "%s | FlashNews", default: "FlashNews" },
+  description: "FlashNews - news from around the world, powered by The Guardian.",
+};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

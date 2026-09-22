@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArticleType } from "@/types/news";
+import type { ArticleType } from "@/types/news";
+import { truncateHtml } from "@/lib/truncateHtml";
 
 interface CategoryNewsCardProps {
   article: ArticleType;
@@ -8,12 +9,8 @@ interface CategoryNewsCardProps {
 }
 
 export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardProps) {
-  const words = article.description.split(" ");
-  const maxLength = isBig ? 30 : 10;
-  const isLong = words.length > maxLength;
-  const displayDescription = isLong
-    ? words.slice(0, maxLength).join(" ") + "..."
-    : article.description;
+  // Guardian text can have tags like <strong>, so we cut it with care.
+  const displayDescription = truncateHtml(article.description, isBig ? 30 : 10);
 
   return (
     <div
@@ -33,7 +30,11 @@ export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardPro
               style={{ height: "auto" }}
             />
           </div>
-          <p className="text-wrap w-full ">{displayDescription}</p>
+          {/* Guardian is a trusted source, so we can show its HTML. */}
+          <div
+            className="text-wrap w-full "
+            dangerouslySetInnerHTML={{ __html: displayDescription }}
+          />
         </div>
         <h2 className="text-center text-xl font-medium text-red-800 p-1 hover:text-red-700 cursor-pointer hover:underline">
           <Link href={`/news/${article.id}`}>{article.title}</Link>
@@ -42,7 +43,7 @@ export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardPro
 
       <div className="flex flex-row justify-between items-center gap-1 text-gray-700 text-md">
         <button className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-2 py-1 rounded">
-          Поширити
+          Share
         </button>
         <button className="border border-gray-500 hover:bg-gray-100 cursor-pointer  px-2 py-1 rounded">
           ⭐️

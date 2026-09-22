@@ -1,8 +1,8 @@
-import { CategoryType } from "./src/types/news";
+import type { CategoryType } from "@/types/news";
 
 /**
- * Навігація сайту. Замінює `arrayMainCategory.ts` і структуру, яку `Navbar`
- * зараз збирає з `arrayFakeNews.ts`.
+ * Навігація сайту: категорії й субкатегорії та їхні запити до Guardian.
+ * Функції пошуку по цьому файлу — у `src/lib/categories.ts`.
  *
  * ПОРЯДОК ВАЖЛИВИЙ:
  *   - усі 10 записів = Navbar
@@ -20,12 +20,12 @@ import { CategoryType } from "./src/types/news";
  *   кілька значень у values обʼєднуються через "|"
  *
  * ПРО ЗАКОМЕНТОВАНІ ПУНКТИ:
- * Назви субкатегорій узяті з поточного меню (з `arrayFakeNews`). Ті з них, яким
+ * Назви субкатегорій узяті зі старого меню (з часів GNews). Ті з них, яким
  * НЕ відповідає жодна реальна секція Guardian, залишені закоментованими з поміткою —
  * щоб було видно, що пункт не загубився, а свідомо вимкнений. Вмикати їх можна буде
  * лише після того, як підберемо і звіримо для них теги.
  *
- * Усі значення type: "section" звірені з реальним списком секцій Guardian (`section_ids.txt`).
+ * Усі значення type: "section" звірені з реальним списком секцій Guardian (`projectsText/guardian-research/section_ids.txt`).
  */
 export const navCategories: CategoryType[] = [
   // ── 1-8: CategoryBar ────────────────────────────────────────────────

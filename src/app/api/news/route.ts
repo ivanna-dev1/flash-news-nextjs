@@ -1,66 +1,25 @@
-
 import { NextResponse } from "next/server";
-import { navCategories } from "../../../../arrayCategory";
+import { findCategory, findSubcategory, getMenuQuery } from "@/lib/categories";
+import { getNewsList, PAGE_SIZE } from "@/lib/getNews";
 
+// Used by the client hook useNews (Sidebar). Server pages call lib/getNews directly.
+// Example: /api/news?category=world&subcategory=uk&page=2&pageSize=10
 export async function GET(request: Request) {
-
   const { searchParams } = new URL(request.url);
-  const category = searchParams.get("category") || "general";
-  const subcategoryToFind = searchParams.get("subcategory");
+  const category = findCategory(searchParams.get("category") || "general");
+  const subcategorySlug = searchParams.get("subcategory");
+  const subcategory =
+    category && subcategorySlug ? findSubcategory(category, subcategorySlug) : undefined;
 
-  const currentCategory = navCategories.find((c) => c.slug === category.toLowerCase());
-  const subcategory = currentCategory?.subcategories.find((sub) => sub.slug === subcategoryToFind?.toLowerCase());
-  let apiKey = process.env.GUARDIAN_API_KEY;
-  let sectionParam = ""
-
-  if (subcategory && subcategory.query) {
-    sectionParam = `${subcategory.query.type}=${subcategory.query.values.join("|")}&`
-  } else if (currentCategory && currentCategory.query) {
-    sectionParam = `${currentCategory.query.type}=${currentCategory.query.values.join("|")}&`
-  } else {
-    sectionParam = ""
-  }
-
-
-  let url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
+  const page = Math.max(1, Number(searchParams.get("page")) || 1);
+  // Guardian gives at most 50 articles per page.
+  const pageSize = Math.min(50, Math.max(1, Number(searchParams.get("pageSize")) || PAGE_SIZE));
 
   try {
-    let response = await fetch(url);
-    let data = await response.json();
-    // Додаємо перевірку: якщо статей немає, викидаємо помилку з текстом від GNews
-    if (!data.response || !data.response.results) {
-      console.warn("The first key didn't work, we're trying a spare one...");
-      apiKey = process.env.GUARDIAN_API_KEY_2;
-      url = `https://content.guardianapis.com/search?${sectionParam}show-fields=all&api-key=${apiKey}`;
-
-      response = await fetch(url);
-      data = await response.json();
-    }
-    // Остання перевірка: якщо і другий ключ не допоміг
-    if (!data.response || !data.response.results) {
-      return NextResponse.json(
-        { error: "All limits have been exceeded" },
-        { status: 429 },
-
-      );
-    }
-    const articles = data.response.results.map((item: any) => ({
-      id: encodeURIComponent(item.id),
-      title: item.webTitle,
-      description: item.fields?.trailText,
-      image: item.fields?.thumbnail || "/mainIMG_2.jpg",
-      category: category.charAt(0).toUpperCase() + category.slice(1),
-      subcategory: "Latest",
-      article: item.fields?.body || item.fields?.trailText,
-      source: { name: "The Guardian", url: "https://www.theguardian.com" },
-      url: item.webUrl,
-      publishedAt: item.webPublicationDate,
-    }));
-    return NextResponse.json(articles);
+    const news = await getNewsList(getMenuQuery(category, subcategory), page, pageSize);
+    return NextResponse.json(news);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch news" },
-      { status: 500 },
-    );
+    console.error(error);
+    return NextResponse.json({ error: "Failed to fetch news" }, { status: 502 });
   }
 }

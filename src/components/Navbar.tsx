@@ -1,13 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { navCategories } from "../../arrayCategory";
+import { navCategories } from "@/data/arrayCategory";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const uniqueSubCategories = [
-  //   ...new Set(uniqueCategories.map((item) => item.subcategory)),
-  // ];
   return (
     <nav className="flex gap-4">
       <button
@@ -21,13 +18,11 @@ const Navbar = () => {
           {navCategories.map((categ) => (
             <ul
               onClick={() => setIsMenuOpen(false)}
-              // className="text-black text-xl transition-colors duration-300"
               key={categ.slug}
             >
               <li className="text-black hover:text-blue-900 hover:underline text-xl transition-colors duration-300">
                 <Link href={`/${categ.slug}`}>{categ.name}</Link>
               </li>
-              {/* <p className="text-red-500 text-lg">hello</p> */}
               <ul className="text-gray-800  text-lg">
                 {categ.subcategories.map((sub) => (
                   <li

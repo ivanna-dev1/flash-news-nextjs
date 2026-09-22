@@ -1,4 +1,4 @@
-import { navCategories } from "../../arrayCategory";
+import { navCategories } from "@/data/arrayCategory";
 import Link from "next/link";
 
 const CategoryBar = () => {
@@ -12,9 +12,8 @@ const CategoryBar = () => {
         >
           {category.name}
         </Link>
-      ))
-      }
-    </div >
+      ))}
+    </div>
   );
 };
 

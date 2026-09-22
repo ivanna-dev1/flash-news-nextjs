@@ -6,13 +6,12 @@ import useNews from "../hooks/useNews";
 
 export default function Sidebar() {
   const { data, isLoading, isError } = useNews();
-  const news = Array.isArray(data) ? data : [];
+  const news = data?.articles ?? [];
 
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   if (isLoading) return <div>Loading news...</div>;
   if (isError) return <div className="text-red-500">Error fetching news</div>;
-  if (!news) return <div>Please try again later. </div>;
 
   return (
     <aside
@@ -21,12 +20,12 @@ export default function Sidebar() {
       <WeatherCard image="/weatherIMG.webp" />
       {isHomePage
         ? news
-            .slice(0, 10)
+            .slice(0, 20)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))
         : news
-            .slice(0, 3)
+            .slice(0, 6)
             .map((article) => (
               <SmallNewsCard article={article} key={article.id} />
             ))}

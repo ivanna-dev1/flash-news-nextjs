@@ -21,7 +21,7 @@ export default function WeatherCard({ image }: WeatherCardProps) {
         >
           <p>City: Lviv</p>
           <p>{new Date().toLocaleDateString("en-US", { weekday: "long" })}</p>
-          <p>{new Date().toLocaleDateString("uk-UA")}</p>
+          <p>{new Date().toLocaleDateString("en-GB")}</p>
         </div>
       </div>
 
