@@ -48,7 +48,9 @@ export default async function NewsPage({ params }: NewsPageProps) {
         />
         {/* Guardian is a trusted source, so we can show its HTML. */}
         <div
-          className="text-lg text-gray-700 "
+          // Guardian HTML can bring wide pictures and long links:
+          // keep them inside the page.
+          className="text-lg text-gray-700 break-words [&_img]:max-w-full [&_img]:h-auto [&_figure]:max-w-full [&_iframe]:max-w-full"
           dangerouslySetInnerHTML={{ __html: article.article ?? article.description }}
         />
       </div>

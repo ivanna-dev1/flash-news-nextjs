@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`hidden md:grid gap-2 items-start content-start ${isHomePage ? "grid-cols-2 flex-1" : "grid-cols-1 w-44 mt-22  "}`}
+      className={`hidden md:grid gap-2 items-start content-start shrink-0 ${isHomePage ? "grid-cols-2 flex-1" : "grid-cols-1 w-44 mt-22  "}`}
     >
       <WeatherCard image="/weatherIMG.webp" />
       {isHomePage

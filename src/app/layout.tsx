@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import CategoryBar from "@/components/CategoryBar";
 import Providers from "./providers";
 import Sidebar from "@/components/Sidebar";
+import ScrollButtons from "@/components/ScrollButtons";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
@@ -39,10 +40,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <CategoryBar />
           <div className="flex flex-col gap-3 md:flex-row   w-full px-5 py-3">
-            <main className="flex-2 min-h-screen">{children}</main>
+            {/* min-w-0: without it a wide article (photo, table, long link) makes
+                main grow and pushes the sidebar out of the page. */}
+            <main className="flex-2 min-w-0 min-h-screen">{children}</main>
             <Sidebar />
           </div>
           <Footer />
+          <ScrollButtons />
         </Providers>
       </body>
     </html>

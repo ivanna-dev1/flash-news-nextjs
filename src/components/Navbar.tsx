@@ -14,7 +14,7 @@ const Navbar = () => {
         {isMenuOpen ? "X" : "☰"}
       </button>
       {isMenuOpen && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 fixed top-[64px] left-1/2 -translate-x-1/2 w-full max-w-[980px] mx-auto my-2 z-100 gap-6 bg-gray-100/95 border-2 border-gray-300/50 px-10 py-10 ">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 fixed top-[64px] left-1/2 -translate-x-1/2 w-full max-w-[980px] mx-auto my-2 z-100 gap-6 bg-gray-100/95 border-2 border-gray-300/50 px-10 pt-6 pb-10 max-h-[calc(100vh-80px)] overflow-y-auto md:max-h-none md:overflow-visible">
           {navCategories.map((categ) => (
             <ul
               onClick={() => setIsMenuOpen(false)}

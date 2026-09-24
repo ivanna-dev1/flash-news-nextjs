@@ -9,7 +9,7 @@ export default function WeatherCard({ image }: WeatherCardProps) {
   const isHomePage = pathname === "/";
   return (
     <div
-      className={`border border-gray-100 p-2 flex flex-col justify-around items-center ${isHomePage ? "h-48 col-span-2" : "min-w-44 h-48 gap-1"}`}
+      className={`border border-gray-100 p-2 flex flex-col justify-around items-center ${isHomePage ? "min-h-48 col-span-2" : "min-w-44 min-h-48 gap-1"}`}
     >
       <div>
         <h1 className="text-center text-xl font-medium">Local Weather</h1>
@@ -21,7 +21,14 @@ export default function WeatherCard({ image }: WeatherCardProps) {
         >
           <p>City: Lviv</p>
           <p>{new Date().toLocaleDateString("en-US", { weekday: "long" })}</p>
-          <p>{new Date().toLocaleDateString("en-GB")}</p>
+          {/* Month as short text ("22 Sep 2026"): clear for everyone, not only in one country. */}
+          <p>
+            {new Date().toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </p>
         </div>
       </div>
 
@@ -36,11 +43,13 @@ export default function WeatherCard({ image }: WeatherCardProps) {
             height={isHomePage ? 100 : 70}
           />
         </div>
-        <div className="  flex flex-col text-gray-800 text-sm justify-start items-start">
-          <p>{isHomePage ? `Temperature: 25°C` : `Temp: 25°C`}</p>
-          <p>{isHomePage ? `Feels like: 25°C` : `Feel: 25°C`}</p>
+        {/* Short labels and "whitespace-nowrap": a long label pushed
+            the number to the next line, which looked broken. */}
+        <div className="flex flex-col text-gray-800 text-sm justify-start items-start whitespace-nowrap">
+          <p>Temp: 25°C</p>
+          <p>Feels: 25°C</p>
           <p>{isHomePage ? `Humidity: 50%` : `Hum: 50%`}</p>
-          <p>{isHomePage ? `Wind: 5 m/s` : `Wind: 5 m/s`}</p>
+          <p>Wind: 5 m/s</p>
         </div>
       </div>
     </div>
