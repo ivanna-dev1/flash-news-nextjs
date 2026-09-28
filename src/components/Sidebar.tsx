@@ -14,8 +14,16 @@ export default function Sidebar() {
   if (isError) return <div className="text-red-500">Error fetching news</div>;
 
   return (
+    // gap-2 is the same space as between the big cards on the home page.
+    // On the home page a column is never narrower than 8rem (128px):
+    // then the sidebar itself can't get narrower than two such columns,
+    // and the main column gives it the room.
+    // Category pages: the sidebar takes 18% of the row (176px on a full
+    // width page), so it grows and shrinks with the page. The column is
+    // never narrower than its content (min-content) - in fact, than the
+    // weather card, the widest thing that can't get narrower.
     <aside
-      className={`hidden md:grid gap-2 items-start content-start shrink-0 ${isHomePage ? "grid-cols-2 flex-1" : "grid-cols-1 w-44 mt-22  "}`}
+      className={`hidden md:grid gap-2 items-start content-start shrink-0 ${isHomePage ? "grid-cols-[repeat(2,minmax(8rem,1fr))] flex-1" : "grid-cols-[minmax(min-content,1fr)] basis-[18%] mt-22"}`}
     >
       <WeatherCard image="/weatherIMG.webp" />
       {isHomePage

@@ -38,7 +38,9 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         {currentCategory.name} news
       </h3>
 
-      <div className="md:grid grid-cols-5 flex-1  gap-3 items-start content-start ">
+      {/* Narrow screen: one card under another (flex-col). From md: a grid.
+          gap-2 is the same space as in the home page grid. */}
+      <div className="flex flex-col md:grid grid-cols-5 flex-1 gap-2 items-start content-start">
         {articles.map((article, index) => (
           <CategoryNewsCard
             article={article}

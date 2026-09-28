@@ -39,7 +39,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <Header />
           <CategoryBar />
-          <div className="flex flex-col gap-3 md:flex-row   w-full px-5 py-3">
+          {/* gap-2: the same space as between the cards in the grids. */}
+          <div className="flex flex-col gap-2 md:flex-row   w-full px-5 py-3">
             {/* min-w-0: without it a wide article (photo, table, long link) makes
                 main grow and pushes the sidebar out of the page. */}
             <main className="flex-2 min-w-0 min-h-screen">{children}</main>
