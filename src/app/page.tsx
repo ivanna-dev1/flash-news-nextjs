@@ -1,21 +1,31 @@
+import type { Metadata } from "next";
 import BigNewsCard from "@/components/BigNewsCard";
-import Pagination from "@/components/Pagination";
-import type { ArticleType } from "@/types/news";
+import { redirect } from "next/navigation";
+import Pagination, { pageHref } from "@/components/Pagination";
+import { getNewsPage } from "@/lib/getNews";
+
 interface HomeProps {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }
+
+export const metadata: Metadata = {
+  // The title template from layout.tsx does not work for a page in the same
+  // folder as the layout, so we write the full title here.
+  title: { absolute: "Latest news | FlashNews" },
+  description: "Latest news from around the world, powered by The Guardian.",
+};
+
 export default async function Home({ searchParams }: HomeProps) {
   const sp = await searchParams;
-  const response = await fetch("http://localhost:3000/api/news");
-  const newsData = await response.json();
-  const news = Array.isArray(newsData) ? newsData : [];
+  // No query = all latest news, the same as the General category.
+  const { articles, totalPages, currentPage, needsRedirect } = await getNewsPage(
+    undefined,
+    sp.page,
+  );
+  // A wrong page number in the address ("?page=1.5", "?page=99999"):
+  // send the reader to the address of the page we really show.
+  if (needsRedirect) redirect(pageHref("/", currentPage));
 
-  const currentPage = Number(sp.page) || 1;
-  const itemsPerPage = 4;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentNews = news.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(news.length / itemsPerPage);
   return (
     <div>
       <p className="text-center text-3xl text-black mb-5 font-gelasio font-medium">
@@ -24,11 +34,14 @@ export default async function Home({ searchParams }: HomeProps) {
       </p>
       <div className="flex flex-col gap-6  ">
         <div className="flex flex-col flex-2 gap-2">
-          {currentNews.map((article) => (
+          {articles.map((article) => (
             <BigNewsCard article={article} key={article.id} />
           ))}
         </div>
       </div>
+      {articles.length === 0 && (
+        <p className="text-center text-gray-500 my-10">No news on this page.</p>
+      )}
       {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
