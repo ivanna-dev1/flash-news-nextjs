@@ -5,6 +5,9 @@ const GUARDIAN_URL = "https://content.guardianapis.com";
 
 // How many articles one page of the list shows.
 export const PAGE_SIZE = 10;
+// Category and subcategory pages show two times more (Ivanna's choice):
+// the page is longer, the reader clicks the pagination less often.
+export const CATEGORY_PAGE_SIZE = 20;
 // Guardian refuses to give very deep pages. A news site does not need them,
 // so we never show more than this number of pages.
 const MAX_PAGES = 100;
@@ -89,6 +92,49 @@ export async function getNewsList(
     currentPage: data.response.currentPage,
     totalPages: Math.min(data.response.pages, MAX_PAGES),
   };
+}
+
+// A page with pagination can get any "?page=..." in the address:
+// "1.5", "abc", "99999". This is the answer for such a page.
+interface NewsPageType extends NewsListType {
+  // true: the address has a wrong page number, and the page must send the
+  // reader to the address of currentPage.
+  needsRedirect: boolean;
+}
+
+// "?page=3" -> 3. Anything that is not a whole number from 1 -> 1.
+function toPageNumber(raw: string | undefined): number {
+  const page = Number(raw);
+  return Number.isInteger(page) && page >= 1 ? page : 1;
+}
+
+// One page of news for a page with pagination. We check the page number:
+// - no number or a bad one ("1.5", "abc", "-2") -> page 1;
+// - more than MAX_PAGES ("?page=101") -> page MAX_PAGES;
+// - after the last page of this category ("?page=99999") -> the last page.
+export async function getNewsPage(
+  query: QueryParamsType | undefined,
+  // Two "page" in the address (?page=2&page=3) give an array.
+  rawPage: string | string[] | undefined,
+  pageSize: number = PAGE_SIZE,
+): Promise<NewsPageType> {
+  const raw = Array.isArray(rawPage) ? rawPage[0] : rawPage;
+  let page = Math.min(toPageNumber(raw), MAX_PAGES);
+  let news = await getNewsList(query, page, pageSize);
+
+  // Guardian answers 400 (we get 0 pages) for a page after its last one.
+  // Then we ask page 1 to learn how many pages there are, and show the
+  // last page. This extra request happens only for a wrong address.
+  if (news.totalPages === 0 && page > 1) {
+    const firstPage = await getNewsList(query, 1, pageSize);
+    page = Math.max(1, firstPage.totalPages);
+    news = page === 1 ? firstPage : await getNewsList(query, page, pageSize);
+  }
+
+  // The right address: page 1 has no "?page", other pages have "?page=N"
+  // with exactly this number ("?page=03" is not right).
+  const isRightAddress = page === 1 ? raw === undefined : raw === String(page);
+  return { ...news, currentPage: page, needsRedirect: !isRightAddress };
 }
 
 // One article by its Guardian id.

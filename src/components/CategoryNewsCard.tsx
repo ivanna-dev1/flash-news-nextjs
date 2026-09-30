@@ -7,9 +7,12 @@ import BookmarkIcon from "./BookmarkIcon";
 interface CategoryNewsCardProps {
   article: ArticleType;
   isBig: boolean;
+  // The menu place of the page with this card: "science" or
+  // "science/medical-research". The article page shows it in breadcrumbs.
+  from: string;
 }
 
-export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardProps) {
+export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsCardProps) {
   // A safety cut. In the grid the real cut is made by CSS, by lines.
   // 40 words: enough to fill 7 lines around the photo.
   const displayDescription = truncateHtml(article.description, 40);
@@ -94,7 +97,7 @@ export default function CategoryNewsCard({ article, isBig }: CategoryNewsCardPro
         <div className="h-[2lh] text-xl flex items-center justify-center">
           {/* line-clamp cuts the title after 2 lines and adds "..." itself. */}
           <h2 className="text-center font-medium text-red-800 line-clamp-2 hover:text-red-700 cursor-pointer hover:underline">
-            <Link href={`/news/${article.id}`}>{article.title}</Link>
+            <Link href={`/news/${article.id}?from=${from}`}>{article.title}</Link>
           </h2>
         </div>
         <div className="flex flex-row justify-between items-stretch gap-1 text-gray-700 text-md">

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -21,10 +22,11 @@ export default function WeatherCard({ image }: WeatherCardProps) {
       // cards. Sides and bottom: 3px, like the sidebar news cards, which
       // stand right under this card.
       className={`border border-gray-100 flex flex-col items-center gap-2 ${isHomePage
-        ? // pt is ~4px smaller than the padding: the title has its own
-          // space above the letters, so the letters start as far from the
-          // top edge as the last line ends from the bottom edge.
-          "justify-center min-h-48 col-span-2 p-[3px] pt-0 min-[860px]:p-2 min-[860px]:pt-1"
+        ? // pt-[10px] on any width: "Local Weather" stands on one line
+          // (baseline) with the first line of the page heading ("Stay
+          // informed..."). The heading letters are bigger, so we match the
+          // line the letters stand on, not their tops.
+          "justify-center min-h-48 col-span-2 p-[3px] pt-[10px] min-[860px]:p-2 min-[860px]:pt-[10px]"
         : "pt-[14px] px-[3px] pb-0"
         }`}
     >

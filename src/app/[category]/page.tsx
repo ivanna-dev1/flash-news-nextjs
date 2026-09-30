@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import CategoryNewsCard from "@/components/CategoryNewsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Pagination from "@/components/Pagination";
+import Pagination, { pageHref } from "@/components/Pagination";
 import { findCategory } from "@/lib/categories";
-import { getNewsList } from "@/lib/getNews";
+import { CATEGORY_PAGE_SIZE, getNewsPage } from "@/lib/getNews";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -28,8 +28,14 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   if (!currentCategory) notFound();
 
   const sp = await searchParams;
-  const currentPage = Math.max(1, Number(sp.page) || 1);
-  const { articles, totalPages } = await getNewsList(currentCategory.query, currentPage);
+  const { articles, totalPages, currentPage, needsRedirect } = await getNewsPage(
+    currentCategory.query,
+    sp.page,
+    CATEGORY_PAGE_SIZE,
+  );
+  // A wrong page number in the address ("?page=1.5", "?page=99999"):
+  // send the reader to the address of the page we really show.
+  if (needsRedirect) redirect(pageHref(`/${currentCategory.slug}`, currentPage));
 
   return (
     <div>
@@ -46,6 +52,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             article={article}
             key={article.id}
             isBig={index % 4 === 0 || index % 4 === 3}
+            from={currentCategory.slug}
           />
         ))}
       </div>

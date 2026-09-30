@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import BigNewsCard from "@/components/BigNewsCard";
-import Pagination from "@/components/Pagination";
-import { getNewsList } from "@/lib/getNews";
+import { redirect } from "next/navigation";
+import Pagination, { pageHref } from "@/components/Pagination";
+import { getNewsPage } from "@/lib/getNews";
 
 interface HomeProps {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }
 
 export const metadata: Metadata = {
@@ -16,9 +17,14 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: HomeProps) {
   const sp = await searchParams;
-  const currentPage = Math.max(1, Number(sp.page) || 1);
   // No query = all latest news, the same as the General category.
-  const { articles, totalPages } = await getNewsList(undefined, currentPage);
+  const { articles, totalPages, currentPage, needsRedirect } = await getNewsPage(
+    undefined,
+    sp.page,
+  );
+  // A wrong page number in the address ("?page=1.5", "?page=99999"):
+  // send the reader to the address of the page we really show.
+  if (needsRedirect) redirect(pageHref("/", currentPage));
 
   return (
     <div>

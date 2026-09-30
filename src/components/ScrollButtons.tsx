@@ -10,14 +10,13 @@ export default function ScrollButtons() {
   useEffect(() => {
     const check = () =>
       setIsPageLong(document.documentElement.scrollHeight > window.innerHeight + 200);
-    check();
-    window.addEventListener("resize", check);
-    // The page grows while news are loading, so we check again after that.
-    const timer = setTimeout(check, 1000);
-    return () => {
-      window.removeEventListener("resize", check);
-      clearTimeout(timer);
-    };
+    // The buttons live in the layout, so they are not created again when the
+    // reader goes to another page. ResizeObserver calls check every time the
+    // body changes its height: news or pictures load, another page opens,
+    // the window gets smaller or bigger.
+    const observer = new ResizeObserver(check);
+    observer.observe(document.body);
+    return () => observer.disconnect();
   }, []);
 
   if (!isPageLong) return null;
@@ -25,7 +24,14 @@ export default function ScrollButtons() {
   const scrollTo = (top: number) => window.scrollTo({ top, behavior: "smooth" });
 
   return (
-    <div className="fixed right-2 bottom-20 z-100 flex flex-col gap-2">
+    // z-40: under the header (z-50), so the open menu covers the buttons.
+    // right: just outside the white page (1000px wide, in the centre):
+    // (window width - 1000px) / 2 is the free space on the right, minus the
+    // button width (2.5rem) and a small gap (0.5rem) = 3rem. For a "fixed"
+    // box 100% is the window width without the scrollbar (100vw would count
+    // the scrollbar too). When there is no free space (a narrow screen),
+    // max() keeps them 0.5rem from the edge.
+    <div className="fixed right-[max(0.5rem,calc((100%_-_1000px)/2_-_3rem))] bottom-10 z-40 flex flex-col gap-2">
       <button
         aria-label="Scroll to top"
         title="To the top"

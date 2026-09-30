@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import CategoryNewsCard from "@/components/CategoryNewsCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Pagination from "@/components/Pagination";
+import Pagination, { pageHref } from "@/components/Pagination";
 import { findCategory, findSubcategory, getMenuQuery } from "@/lib/categories";
-import { getNewsList } from "@/lib/getNews";
+import { CATEGORY_PAGE_SIZE, getNewsPage } from "@/lib/getNews";
 
 interface SubcategoryPageProps {
   params: Promise<{ category: string; subcategory: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }
 
 export async function generateMetadata({ params }: SubcategoryPageProps): Promise<Metadata> {
@@ -35,11 +35,23 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
   const currentSubcategory = findSubcategory(currentCategory, subcategory);
 
   const sp = await searchParams;
-  const currentPage = Math.max(1, Number(sp.page) || 1);
-  const { articles, totalPages } = await getNewsList(
+  const { articles, totalPages, currentPage, needsRedirect } = await getNewsPage(
     getMenuQuery(currentCategory, currentSubcategory),
-    currentPage,
+    sp.page,
+    CATEGORY_PAGE_SIZE,
   );
+
+  // The path of this place in our menu, always from the config
+  // (arrayCategory.ts), never from the address bar: "/World/UK" and
+  // "/world/uk" open the same page, but our links must be the same too.
+  // A subcategory that is not in the menu shows the category news,
+  // so its path is the category path.
+  const placePath = currentSubcategory
+    ? `${currentCategory.slug}/${currentSubcategory.slug}`
+    : currentCategory.slug;
+  // A wrong page number in the address ("?page=1.5", "?page=99999"):
+  // send the reader to the address of the page we really show.
+  if (needsRedirect) redirect(pageHref(`/${placePath}`, currentPage));
 
   return (
     <div>
@@ -61,6 +73,8 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
             article={article}
             key={article.id}
             isBig={index % 4 === 0 || index % 4 === 3}
+            // The article breadcrumbs show the place the reader came from.
+            from={placePath}
           />
         ))}
       </div>
@@ -71,7 +85,7 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
-          basePath={`/${category}/${subcategory}`}
+          basePath={`/${placePath}`}
         />
       )}
     </div>

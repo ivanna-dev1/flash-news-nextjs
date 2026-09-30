@@ -31,6 +31,18 @@ function hasSection(item: SubCategoryType, sectionId: string): boolean {
   return item.query?.type === "section" && item.query.values.includes(sectionId);
 }
 
+// Finds a menu place by its path: "science" or "science/medical-research".
+// We use it for the breadcrumbs of an article opened from a category page
+// (the card link has ?from=science/medical-research). Anything that is not
+// in our menu gives an empty place, and the page uses the article section.
+export function findPlaceByPath(path: string): ArticlePlace {
+  const [categorySlug, subcategorySlug] = path.split("/");
+  const category = findCategory(categorySlug ?? "");
+  if (!category) return {};
+  const subcategory = subcategorySlug ? findSubcategory(category, subcategorySlug) : undefined;
+  return { category, subcategory };
+}
+
 // Finds where an article lives in our menu, by its Guardian section.
 // Example: section "commentisfree" -> General / Opinion.
 // We check subcategories first, because they are more exact:
