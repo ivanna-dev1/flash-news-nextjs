@@ -7,6 +7,12 @@
 
 html {
   background-color: white;
+  /* Always keep room for the scrollbar. While a page loads ("Loading
+     news...") it is short and has no scrollbar; then the news come, the
+     scrollbar appears, the page gets 14px narrower - the centred page moves
+     left and the background picture changes its size. On a tall monitor it
+     looked like the page jumps. */
+  scrollbar-gutter: stable;
 }
 
 @media (min-width: 1000px) {
