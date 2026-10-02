@@ -17,3 +17,154 @@ html {
     background-position: center;
   }
 }
+
+/* ---------- Article text ----------
+   The article body is HTML from Guardian (dangerouslySetInnerHTML in
+   src/app/news/[id]/page.tsx). We cannot put Tailwind classes on its tags,
+   so we style the tags here, inside .article-body.
+   The classes (element-rich-link, block-time...) are Guardian's own:
+   we checked them on 76 articles of all kinds (2026-10-02). */
+.article-body {
+  @apply text-lg leading-relaxed text-gray-700 break-words;
+
+  /* Paragraphs: space between them. */
+  & p {
+    @apply mb-4;
+  }
+  /* Guardian sends empty <p></p> as spacers - they only make holes. */
+  & p:empty {
+    @apply hidden;
+  }
+
+  /* Links must look like links: the site red + underline. */
+  & a {
+    @apply text-red-800 underline underline-offset-2 decoration-red-800/40 hover:decoration-red-800;
+  }
+  & strong,
+  & b {
+    @apply font-semibold text-gray-800;
+  }
+
+  & h2 {
+    @apply text-2xl font-semibold text-gray-800 mt-8 mb-3 leading-snug;
+  }
+
+  /* Lists. Guardian puts a <p> inside every <li>: no space under it. */
+  & ul {
+    @apply list-disc pl-6 mb-4;
+  }
+  & ol {
+    @apply list-decimal pl-6 mb-4;
+  }
+  & li {
+    @apply mb-2;
+  }
+  & li > p {
+    @apply mb-0;
+  }
+
+  /* flow-root: a box (quote, related link, picture) does not go under
+     the floated main photo - it stands next to it or under it. Without it
+     the grey background and the line on the left hide under the photo. */
+  & blockquote,
+  & aside,
+  & figure {
+    @apply flow-root;
+  }
+
+  /* A quote from another text (a document, a statement). */
+  & blockquote.quoted {
+    @apply my-5 border-l-4 border-gray-300 pl-4 text-gray-600 italic;
+  }
+
+  /* A big quote from a person in the article. */
+  & aside.element-pullquote {
+    @apply my-6 border-t-2 border-red-800 pt-3;
+  }
+  & aside.element-pullquote blockquote p {
+    @apply mb-2 text-2xl leading-snug text-red-800 font-serif;
+  }
+  & aside.element-pullquote cite {
+    @apply text-base not-italic text-gray-500;
+  }
+
+  /* "Related: <link to another Guardian article>". */
+  & aside.element-rich-link {
+    @apply my-5 border-l-4 border-red-800 bg-gray-50 px-4 py-2 text-base;
+  }
+  & aside.element-rich-link p {
+    @apply mb-0;
+  }
+  & aside.element-rich-link span {
+    @apply font-semibold text-gray-800;
+  }
+
+  /* Pictures and videos: never wider than the text. */
+  & figure {
+    @apply my-6;
+  }
+  & img,
+  & video {
+    @apply max-w-full h-auto;
+  }
+  & iframe {
+    @apply max-w-full;
+  }
+  /* YouTube videos: full width, 16:9 (Guardian gives 854x480 or none). */
+  & figure.element-video iframe,
+  & figure.element-atom iframe {
+    @apply w-full h-auto aspect-video;
+  }
+  & figcaption {
+    @apply mt-2 text-sm text-gray-500;
+  }
+
+  /* Boxes with extra info (tips, "about this series"). */
+  & .atom-Profile,
+  & .atom-Guide {
+    @apply bg-gray-50 px-4 pt-4 pb-1 text-base;
+  }
+
+  /* Things that work only on the Guardian site. Here they show only a
+     service word ("default", "Interactive") or an empty frame:
+     - gu-atom "interactive" -> the word "default";
+     - element-interactive -> the link "Interactive" (a chart in an iframe);
+     - element-embed with iframe.fenced -> an empty frame (its script
+       does not run here);
+     - atom-Audio -> an empty player;
+     - element-callout -> a reader form that needs the Guardian site. */
+  & figure:has(gu-atom[data-atom-type="interactive"]),
+  & figure.element-interactive,
+  & figure.element-embed:has(iframe.fenced),
+  & figure:has(.atom-Audio),
+  & .element-callout {
+    @apply hidden;
+  }
+
+  /* ----- Live blogs (type "liveblog") -----
+     The text is a list of short updates, the newest first. Each update is
+     a div.block with its time (p.block-time) and maybe a title. */
+  & .block {
+    @apply flow-root border-t border-gray-200 pt-4 mt-4;
+  }
+  & .block:first-child {
+    @apply border-t-0 pt-0 mt-0;
+  }
+  /* The time of the update: small and grey, so it reads as a label,
+     not as a line of the text. */
+  & .block-time {
+    @apply mb-1 text-sm font-semibold text-gray-500;
+  }
+  /* "Updated at 8.30pm" at the end of an update: even smaller. */
+  & .block-time.updated-time {
+    @apply mt-1 mb-0 text-xs font-normal text-gray-400;
+  }
+  & .block-title {
+    @apply mt-1 mb-2 text-xl;
+  }
+  /* Key events and the summary of the day: a red line on the left. */
+  & .block.is-key-event,
+  & .block.is-summary {
+    @apply border-l-4 border-l-red-800 pl-4;
+  }
+}
