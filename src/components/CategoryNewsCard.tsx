@@ -9,7 +9,9 @@ interface CategoryNewsCardProps {
   isBig: boolean;
   // The menu place of the page with this card: "science" or
   // "science/medical-research". The article page shows it in breadcrumbs.
-  from: string;
+  // No "from" (the search page): the article page finds the place by the
+  // article section, as for a card on the home page.
+  from?: string;
 }
 
 export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsCardProps) {
@@ -97,7 +99,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
         <div className="h-[2lh] text-xl flex items-center justify-center">
           {/* line-clamp cuts the title after 2 lines and adds "..." itself. */}
           <h2 className="text-center font-medium text-red-800 line-clamp-2 hover:text-red-700 cursor-pointer hover:underline">
-            <Link href={`/news/${article.id}?from=${from}`}>{article.title}</Link>
+            <Link href={from ? `/news/${article.id}?from=${from}` : `/news/${article.id}`}>{article.title}</Link>
           </h2>
         </div>
         <div className="flex flex-row justify-between items-stretch gap-1 text-gray-700 text-md">

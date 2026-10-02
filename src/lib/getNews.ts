@@ -61,10 +61,12 @@ function toArticle(item: GuardianItem): ArticleType {
 }
 
 // One page of news. No query = all latest news (like General).
+// searchText: the words from the search box (Guardian "q").
 export async function getNewsList(
   query: QueryParamsType | undefined,
   page: number,
   pageSize: number = PAGE_SIZE,
+  searchText?: string,
 ): Promise<NewsListType> {
   const params: Record<string, string> = {
     page: String(page),
@@ -73,6 +75,16 @@ export async function getNewsList(
     "show-fields": "trailText,thumbnail",
   };
   if (query) params[query.type] = query.values.join("|");
+  if (searchText) {
+    params.q = searchText;
+    // With "q" Guardian puts the best match first, and it can be 10 years
+    // old. A news site shows the newest first (Ivanna's choice).
+    params["order-by"] = "newest";
+    // Look for the words only in the title and the short text, not in the
+    // whole article. Else "Crypto" gives political columns that say
+    // "crypto" once somewhere in the middle.
+    params["query-fields"] = "headline,trailText";
+  }
 
   const response = await fetchGuardian("search", params);
   const data = await response.json();
@@ -117,18 +129,19 @@ export async function getNewsPage(
   // Two "page" in the address (?page=2&page=3) give an array.
   rawPage: string | string[] | undefined,
   pageSize: number = PAGE_SIZE,
+  searchText?: string,
 ): Promise<NewsPageType> {
   const raw = Array.isArray(rawPage) ? rawPage[0] : rawPage;
   let page = Math.min(toPageNumber(raw), MAX_PAGES);
-  let news = await getNewsList(query, page, pageSize);
+  let news = await getNewsList(query, page, pageSize, searchText);
 
   // Guardian answers 400 (we get 0 pages) for a page after its last one.
   // Then we ask page 1 to learn how many pages there are, and show the
   // last page. This extra request happens only for a wrong address.
   if (news.totalPages === 0 && page > 1) {
-    const firstPage = await getNewsList(query, 1, pageSize);
+    const firstPage = await getNewsList(query, 1, pageSize, searchText);
     page = Math.max(1, firstPage.totalPages);
-    news = page === 1 ? firstPage : await getNewsList(query, page, pageSize);
+    news = page === 1 ? firstPage : await getNewsList(query, page, pageSize, searchText);
   }
 
   // The right address: page 1 has no "?page", other pages have "?page=N"

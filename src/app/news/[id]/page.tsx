@@ -80,10 +80,10 @@ export default async function NewsPage({ params, searchParams }: NewsPageProps) 
           sizes="(max-width: 640px) 100vw, 300px"
         />
         {/* Guardian is a trusted source, so we can show its HTML. */}
+        {/* article-body: the styles of the Guardian HTML (paragraphs,
+            links, quotes, live blog updates) are in globals.css. */}
         <div
-          // Guardian HTML can bring wide pictures and long links:
-          // keep them inside the page.
-          className="text-lg text-gray-700 break-words [&_img]:max-w-full [&_img]:h-auto [&_figure]:max-w-full [&_iframe]:max-w-full"
+          className="article-body"
           dangerouslySetInnerHTML={{ __html: article.article ?? article.description }}
         />
       </div>
