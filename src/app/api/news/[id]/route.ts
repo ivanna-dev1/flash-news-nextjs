@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 import { getArticle } from "@/lib/getNews";
 
-// One article as JSON. The article page does not use this route:
-// it calls lib/getNews directly. The route stays for other clients.
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  // Here the id comes decoded ("film/2026/..."). getArticle works with both forms.
   const { id } = await params;
 
   try {

@@ -1,11 +1,4 @@
-// Icons for the header buttons: menu, close, search.
-// They are SVG, not font symbols ("☰", "X"): a symbol has a different size
-// in every font, SVG is the same everywhere.
-// The drawing fills the whole viewBox (no empty space around it), so the
-// height from className is the real height of the icon. In the header we
-// use h-[0.7em]: 0.7 of the font size = the height of the capital letters
-// in FLASHNEWS, so all three things in the header are equally tall.
-// Colour comes from the text colour (currentColor).
+// The paths fill the whole viewBox, so h-[0.7em] equals the cap height of the logo.
 
 interface IconProps {
   className?: string;

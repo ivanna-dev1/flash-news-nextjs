@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { category } = await params;
   const currentCategory = findCategory(category);
-  // The category is not in our menu (arrayCategory.ts) -> 404.
   if (!currentCategory) notFound();
 
   const sp = await searchParams;
@@ -33,8 +32,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     sp.page,
     CATEGORY_PAGE_SIZE,
   );
-  // A wrong page number in the address ("?page=1.5", "?page=99999"):
-  // send the reader to the address of the page we really show.
   if (needsRedirect) redirect(pageHref(`/${currentCategory.slug}`, currentPage));
 
   return (
@@ -44,8 +41,6 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         {currentCategory.name} news
       </h3>
 
-      {/* Narrow screen: one card under another (flex-col). From md: a grid.
-          gap-2 is the same space as in the home page grid. */}
       <div className="flex flex-col md:grid grid-cols-5 flex-1 gap-2 items-start content-start">
         {articles.map((article, index) => (
           <CategoryNewsCard

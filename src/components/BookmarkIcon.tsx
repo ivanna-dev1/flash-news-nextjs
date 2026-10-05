@@ -1,7 +1,3 @@
-// Outline bookmark icon for the "save" buttons on the cards.
-// It is SVG, not a font symbol: a symbol looks different in every font,
-// SVG looks the same everywhere. Size comes from className (e.g. "size-6"),
-// colour from the text colour (currentColor).
 export default function BookmarkIcon({ className }: { className?: string }) {
   return (
     <svg

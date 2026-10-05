@@ -13,12 +13,7 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-// "%s" is replaced by the title of each page: "World news | FlashNews".
 export const metadata: Metadata = {
-  // The site address: short links in the page head (like canonical
-  // "/news/...") are made full with it. Vercel sets
-  // VERCEL_PROJECT_PRODUCTION_URL itself (without "https://");
-  // on our computer it is localhost.
   metadataBase: new URL(
     process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -48,21 +43,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Providers>
           <Header />
           <CategoryBar />
-          {/* gap-2: the same space as between the cards in the grids.
-              md:items-start: each column is as tall as its own content.
-              Without it main would stretch to the sidebar height, and the
-              sidebar (it counts its cards from the main height) would
-              measure itself. px-3 on a phone: more room for the content.
-              flex-1: this block takes all free height of the body, so on a
-              short page (404) the footer still stays at the bottom.
-              relative: the frame for the pagination, which stands in the
-              centre of this whole row, not only of main (see Pagination). */}
+          {/* items-start: the sidebar measures main, so main must not stretch to it.
+              relative: Pagination centers itself on this row. */}
           <div className="relative flex-1 flex flex-col gap-2 md:flex-row md:items-start w-full px-3 sm:px-5 py-3">
-            {/* min-w-0: without it a wide article (photo, table, long link) makes
-                main grow and pushes the sidebar out of the page.
-                No min height: main is as tall as its content. With
-                min-h-screen every page was longer than the window, and the
-                scroll buttons were shown even on a short 404 page. */}
+            {/* min-w-0: wide article content must not push the sidebar out. */}
             <main className="flex-2 min-w-0">{children}</main>
             <Sidebar />
           </div>

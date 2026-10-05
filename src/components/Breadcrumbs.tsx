@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { SubCategoryType } from "@/types/news";
 
-// Menu items from arrayCategory.ts: `name` is for the text, `slug` is for the link.
 interface BreadcrumbsProps {
   category?: SubCategoryType;
   subcategory?: SubCategoryType;
@@ -10,17 +9,8 @@ interface BreadcrumbsProps {
 
 export default function Breadcrumbs({ category, subcategory, title }: BreadcrumbsProps) {
   return (
-    // One line always. The links (Home / category / subcategory) never wrap
-    // (whitespace-nowrap), even with two words like "Global development".
-    // Home and the category never get narrower (shrink-0). The article
-    // title gets narrower first and is cut with "..." (truncate), but it
-    // always keeps at least 3em - about one short word (Ivanna's choice).
-    // Only when the title is already that small (a long subcategory on a
-    // very narrow phone), the subcategory is cut with "..." too: the title
-    // has shrink-[100], 100 times more than the subcategory (shrink 1), so
-    // the title gets narrower first. (Not shrink-[0.01] on the subcategory:
-    // when the sum of flex-shrink numbers is less than 1, the browser
-    // shrinks only that part of the needed width, and the line overflows.)
+    // One line. The title shrinks first (shrink-[100]) down to 3em,
+    // then the subcategory gets truncated.
     <div className="flex flex-row gap-2 text-gray-700 text-md ">
       <Link
         className="shrink-0 whitespace-nowrap hover:underline cursor-pointer hover:text-blue-900"
@@ -50,9 +40,6 @@ export default function Breadcrumbs({ category, subcategory, title }: Breadcrumb
           </Link>
         </>
       )}
-      {/* The title is shown on every screen, also on a phone (Ivanna's
-          choice: without it the breadcrumbs look unfinished). It takes the
-          room that is left on the line - even if only one word fits. */}
       {title && (
         <>
           <p className="shrink-0"> / </p>
