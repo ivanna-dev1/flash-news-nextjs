@@ -16,15 +16,36 @@ function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, "");
 }
 
+// Guardian thumbnails are 500px wide; the same crop exists at 1000px,
+// which messengers show as a large preview.
+function previewImage(thumbnail: string): string {
+  return thumbnail.startsWith("https://media.guim.co.uk/")
+    ? thumbnail.replace(/\/500\.jpg$/, "/1000.jpg")
+    : thumbnail;
+}
+
 export async function generateMetadata({ params }: NewsPageProps): Promise<Metadata> {
   const { id } = await params;
   const article = await getArticle(id);
   if (!article) return { title: "Article not found" };
+  // Re-encode so the slashes stay %2F.
+  const url = `/news/${encodeURIComponent(decodeURIComponent(id))}`;
+  const description = stripTags(article.description);
   return {
     title: article.title,
-    description: stripTags(article.description),
-    // Re-encode so the slashes stay %2F.
-    alternates: { canonical: `/news/${encodeURIComponent(decodeURIComponent(id))}` },
+    description,
+    alternates: { canonical: url },
+    // Link previews in messengers and social networks.
+    openGraph: {
+      type: "article",
+      siteName: "FlashNews",
+      url,
+      title: article.title,
+      description,
+      images: [previewImage(article.image)],
+      publishedTime: article.publishedAt,
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ArticleType } from "@/types/news";
 import { truncateHtml } from "@/lib/truncateHtml";
 import BookmarkIcon from "./BookmarkIcon";
+import ShareButton from "./ShareButton";
 
 interface BigNewsCardProps {
   article: ArticleType;
@@ -34,9 +35,11 @@ export default function BigNewsCard({ article }: BigNewsCardProps) {
         <Link href={`/news/${article.id}`}>{article.title}</Link>
       </h2>
       <div className="flex flex-row justify-between items-stretch gap-2 text-gray-700 text-md">
-        <button className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded">
-          Share
-        </button>
+        <ShareButton
+          path={`/news/${article.id}`}
+          title={article.title}
+          className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded"
+        />
         <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-4 rounded">
           <BookmarkIcon className="size-6" />
         </button>
