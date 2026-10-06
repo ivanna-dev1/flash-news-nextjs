@@ -38,7 +38,7 @@ export default function BigNewsCard({ article }: BigNewsCardProps) {
         <ShareButton
           path={`/news/${article.id}`}
           title={article.title}
-          className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded"
+          className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded font-medium"
         />
         <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-4 rounded">
           <BookmarkIcon className="size-6" />

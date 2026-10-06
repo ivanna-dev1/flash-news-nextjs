@@ -63,7 +63,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
           <ShareButton
             path={`/news/${article.id}`}
             title={article.title}
-            className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-2 py-1 rounded"
+            className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-2 py-1 rounded font-medium"
           />
           <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-2 rounded">
             <BookmarkIcon className="size-5" />

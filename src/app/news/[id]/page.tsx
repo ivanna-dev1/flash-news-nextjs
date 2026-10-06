@@ -16,12 +16,12 @@ function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, "");
 }
 
-// Guardian thumbnails are 500px wide; the same crop exists at 1000px,
-// which messengers show as a large preview.
+// Guardian thumbnails are 500px wide; messengers show a 1000px one as a
+// large preview. It exists only when the crop itself (".../x_y_width_height/500.jpg")
+// is at least 1000px wide, otherwise the URL answers 403.
 function previewImage(thumbnail: string): string {
-  return thumbnail.startsWith("https://media.guim.co.uk/")
-    ? thumbnail.replace(/\/500\.jpg$/, "/1000.jpg")
-    : thumbnail;
+  const crop = thumbnail.match(/^https:\/\/media\.guim\.co\.uk\/.+\/\d+_\d+_(\d+)_\d+\/500\.jpg$/);
+  return crop && Number(crop[1]) >= 1000 ? thumbnail.replace(/500\.jpg$/, "1000.jpg") : thumbnail;
 }
 
 export async function generateMetadata({ params }: NewsPageProps): Promise<Metadata> {
