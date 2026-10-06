@@ -42,9 +42,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-file.md
-/.agents/
-conception.md
+# local notes and editor/tool settings
 projectsText/
-.claude/
-/CLAUDE.md
+/.*/
+/*.md
+!/README.md
