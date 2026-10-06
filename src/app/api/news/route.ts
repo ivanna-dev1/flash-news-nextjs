@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { findCategory, findSubcategory, getMenuQuery } from "@/lib/categories";
 import { getNewsList, PAGE_SIZE } from "@/lib/getNews";
 
-// Used by the client hook useNews (Sidebar). Server pages call lib/getNews directly.
-// Example: /api/news?category=world&subcategory=uk&page=2&pageSize=10
+// Used by the sidebar (useNews). Server pages call lib/getNews directly.
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = findCategory(searchParams.get("category") || "general");
@@ -12,7 +11,6 @@ export async function GET(request: Request) {
     category && subcategorySlug ? findSubcategory(category, subcategorySlug) : undefined;
 
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
-  // Guardian gives at most 50 articles per page.
   const pageSize = Math.min(50, Math.max(1, Number(searchParams.get("pageSize")) || PAGE_SIZE));
 
   try {

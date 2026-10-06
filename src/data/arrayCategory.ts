@@ -1,38 +1,15 @@
 import type { CategoryType } from "@/types/news";
 
-/**
- * Site navigation: categories, subcategories and their Guardian queries.
- * Search functions for this file live in `src/lib/categories.ts`.
- *
- * ORDER MATTERS:
- *   - all 10 items = Navbar
- *   - CategoryBar = items 1-7 -> `navCategories.slice(1, 8)` (7 items)
- *   - General is FIRST (index 0) and is NOT in CategoryBar on purpose:
- *     it is a "basket" for sections without a better place
- *   - Lifestyle and Health (index 8-9) are in the Navbar only
- *
- * HOW TO READ query:
- *   { type: "section", values: [...] } -> ?section=...
- *   { type: "tag",     values: [...] } -> ?tag=...
- *   no query                           -> request without a filter (all latest news)
- *   several values are joined with "|"
- *
- * SECTION OR TAG:
- * In Guardian the second level of the menu is a mix. Some items are real
- * sections, others exist only as tags. So every item keeps its own query.
- * All "section" values are checked against the real list of Guardian sections
- * (`projectsText/guardian-research/section_ids.txt`). All "tag" values were
- * checked with live requests on 2026-09-23: the tag exists and it really gets
- * new articles (we looked at the number of articles in the last 30 days).
- */
+// Menu config. Navbar shows all items, CategoryBar shows items 1-7
+// (General and the last two are menu-only).
+// Each item maps to a Guardian section OR tag: many topics exist only as tags.
+// Every tag here was checked against the live API - an unknown tag returns
+// zero results instead of an error.
 export const navCategories: CategoryType[] = [
-  // ── 1-8: CategoryBar ────────────────────────────────────────────────
   {
     name: "General",
     slug: "general",
-    // No query: all latest news without a section filter.
-    // A temporary "basket": real Guardian sections that do not belong
-    // to the categories below yet.
+    // No query: all latest news.
     subcategories: [
       { name: "Opinion", slug: "opinion", query: { type: "section", values: ["commentisfree"] } },
       { name: "Education", slug: "education", query: { type: "section", values: ["education"] } },
@@ -87,8 +64,7 @@ export const navCategories: CategoryType[] = [
     slug: "politics",
     query: { type: "section", values: ["politics"] },
     subcategories: [
-      // Guardian has no "politics" tag for most countries (checked: France,
-      // Germany, China, India, Canada do not exist). Only US, EU and Australia.
+      // Guardian has country politics tags only for the US, EU and Australia.
       { name: "US", slug: "us-politics", query: { type: "tag", values: ["us-news/us-politics"] } },
       { name: "Europe", slug: "eu", query: { type: "tag", values: ["world/eu"] } },
       { name: "Australia", slug: "australia-politics", query: { type: "tag", values: ["australia-news/australian-politics"] } },
@@ -114,11 +90,9 @@ export const navCategories: CategoryType[] = [
   {
     name: "Sports",
     slug: "sports",
-    // Careful: the Guardian section is "sport" (one), our slug is "sports".
+    // Guardian section is "sport", not "sports".
     query: { type: "section", values: ["sport"] },
     subcategories: [
-      // Different sports, not three kinds of football: Premier League,
-      // Champions League and women's football all live inside Football.
       { name: "Football", slug: "football", query: { type: "section", values: ["football"] } },
       { name: "Cricket", slug: "cricket", query: { type: "tag", values: ["sport/cricket"] } },
       { name: "Tennis", slug: "tennis", query: { type: "tag", values: ["sport/tennis"] } },
@@ -132,7 +106,7 @@ export const navCategories: CategoryType[] = [
   {
     name: "Entertainment",
     slug: "entertainment",
-    // There is no "entertainment" section: we collect several culture sections.
+    // No "entertainment" section in Guardian.
     query: { type: "section", values: ["culture", "film", "music", "tv-and-radio", "stage"] },
     subcategories: [
       { name: "Movies", slug: "movies", query: { type: "section", values: ["film"] } },
@@ -144,7 +118,6 @@ export const navCategories: CategoryType[] = [
     ],
   },
 
-  // ── 9-10: Navbar only, not in CategoryBar ───────────────────────────
   {
     name: "Lifestyle",
     slug: "lifestyle",
@@ -159,7 +132,7 @@ export const navCategories: CategoryType[] = [
   {
     name: "Health",
     slug: "health",
-    // There is no "health" section in Guardian. We use the checked tag.
+    // No "health" section in Guardian.
     query: { type: "tag", values: ["society/health"] },
     subcategories: [
       { name: "Wellbeing", slug: "wellbeing", query: { type: "tag", values: ["lifeandstyle/health-and-wellbeing"] } },
@@ -171,21 +144,3 @@ export const navCategories: CategoryType[] = [
     ],
   },
 ];
-
-/**
- * Guardian sections we left out on purpose: service pages, professional
- * networks and non-news parts. Kept as a list, so it is clear that they were
- * not forgotten but skipped:
- *
- * about, animals-farmed, better-business, business-to-business, cardiff,
- * childrens-books-site, community, crosswords, culture-network,
- * culture-professionals-network, edinburgh, enterprise-network, extra,
- * global-development-professionals-network, government-computing-network,
- * guardian-foundation, guardian-professional, healthcare-network, help,
- * higher-education-network, housing-network, info, jobsadvice, katine, leeds,
- * local, local-government-network, media-network, membership, news, public-leaders-network,
- * puzzles, search, small-business-network, social-care-network,
- * social-enterprise-network, society-professionals, teacher-network, thefilter,
- * thefilter-us, theguardian, theobserver, travel/offers, us-wellness,
- * voluntary-sector-network, weather, women-in-leadership, working-in-development
- */

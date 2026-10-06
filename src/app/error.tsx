@@ -4,12 +4,9 @@ import { useEffect } from "react";
 
 interface ErrorProps {
   error: Error & { digest?: string };
-  // Next.js 16: loads the data again and draws the page again.
   unstable_retry: () => void;
 }
 
-// Shown when a page throws an error, for example Guardian API is down.
-// Header, menu and footer stay on the screen: they are in layout.tsx.
 export default function Error({ error, unstable_retry }: ErrorProps) {
   useEffect(() => {
     console.error(error);

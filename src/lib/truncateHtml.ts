@@ -1,8 +1,5 @@
-// Cuts HTML text to `maxWords` words and keeps the tags working.
-// We count only words, not tags. A tag is never cut in the middle.
-// If a tag stays open (for example <strong>), the browser closes it itself.
+// Cuts HTML to maxWords words without breaking tags.
 export function truncateHtml(html: string, maxWords: number): string {
-  // "(<[^>]+>)" splits the text into tags and plain text parts.
   const parts = html.split(/(<[^>]+>)/);
   let words = 0;
   let result = "";

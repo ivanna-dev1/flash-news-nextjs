@@ -9,21 +9,17 @@ interface HomeProps {
 }
 
 export const metadata: Metadata = {
-  // The title template from layout.tsx does not work for a page in the same
-  // folder as the layout, so we write the full title here.
+  // The layout title template doesn't apply to the page next to the layout.
   title: { absolute: "Latest news | FlashNews" },
   description: "Latest news from around the world, powered by The Guardian.",
 };
 
 export default async function Home({ searchParams }: HomeProps) {
   const sp = await searchParams;
-  // No query = all latest news, the same as the General category.
   const { articles, totalPages, currentPage, needsRedirect } = await getNewsPage(
     undefined,
     sp.page,
   );
-  // A wrong page number in the address ("?page=1.5", "?page=99999"):
-  // send the reader to the address of the page we really show.
   if (needsRedirect) redirect(pageHref("/", currentPage));
 
   return (
