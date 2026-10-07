@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { navCategories } from "@/data/arrayCategory";
-import { CloseIcon, MenuIcon } from "./HeaderIcons";
+import { CloseIcon, HEADER_BUTTON, MenuIcon } from "./HeaderIcons";
 
 interface NavbarProps {
   isOpen: boolean;
@@ -38,7 +38,7 @@ const Navbar = ({ isOpen: isMenuOpen, setIsOpen: setIsMenuOpen }: NavbarProps) =
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         aria-expanded={isMenuOpen}
-        className="w-8 h-8 shrink-0 flex items-center justify-center text-3xl cursor-pointer"
+        className={HEADER_BUTTON}
       >
         {isMenuOpen ? (
           <CloseIcon className="h-[0.7em]" />

@@ -1,5 +1,10 @@
 // The paths fill the whole viewBox, so h-[0.7em] equals the cap height of the logo.
 
+// Square header button. Sizes are in em of --hs (set on <header>), so on narrow
+// phones the buttons shrink together with the logo. 1.067em = 32px at 30px.
+export const HEADER_BUTTON =
+  "w-[1.067em] h-[1.067em] shrink-0 flex items-center justify-center text-[length:var(--hs)] cursor-pointer";
+
 interface IconProps {
   className?: string;
 }
@@ -24,6 +29,15 @@ export function CloseIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 20 20" {...svgProps} className={`block w-auto ${className ?? ""}`}>
       <path d="M1 1l18 18M19 1L1 19" />
+    </svg>
+  );
+}
+
+export function UserIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 20 20" {...svgProps} className={`block w-auto ${className ?? ""}`}>
+      <circle cx="10" cy="6" r="5" />
+      <path d="M1 19c0-4.4 4-7 9-7s9 2.6 9 7" />
     </svg>
   );
 }

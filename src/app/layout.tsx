@@ -11,6 +11,8 @@ import type { Metadata } from "next";
 
 interface RootLayoutProps {
   children: ReactNode;
+  // @auth slot: the sign-in / sign-up dialog over the current page.
+  auth: ReactNode;
 }
 
 export const metadata: Metadata = {
@@ -33,7 +35,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, auth }: RootLayoutProps) {
   return (
     <html
       lang="en"
@@ -52,6 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
           <Footer />
           <ScrollButtons />
+          {auth}
         </Providers>
       </body>
     </html>
