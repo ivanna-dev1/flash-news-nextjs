@@ -15,14 +15,48 @@ interface AuthDialogProps {
 }
 
 const MIN_PASSWORD = 8;
+// Better Auth default limit.
+const MAX_PASSWORD = 128;
 
 // Better Auth error codes -> our English messages.
 const ERROR_MESSAGES: Record<string, string> = {
-  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: "Email already in use",
+  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: "Email already in use. Sign in instead?",
   INVALID_EMAIL_OR_PASSWORD: "Wrong email or password",
   PASSWORD_TOO_SHORT: `Password must be at least ${MIN_PASSWORD} characters`,
+  PASSWORD_TOO_LONG: `Password must be at most ${MAX_PASSWORD} characters`,
   INVALID_EMAIL: "Enter a valid email",
 };
+
+// No known code: explain by the HTTP status at least.
+function messageForStatus(status: number): string {
+  if (status === 429) return "Too many attempts. Please wait a minute and try again.";
+  if (status >= 500) return "Sign-in is not available right now. Please try again later.";
+  return "Something went wrong. Please try again.";
+}
+
+// Line icons, 24x24, same stroke as the header icons.
+const eyeProps = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true,
+  className: "size-5",
+};
+const EyeIcon = () => (
+  <svg {...eyeProps}>
+    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+const EyeOffIcon = () => (
+  <svg {...eyeProps}>
+    <path d="M10.6 5.1A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-2.6 3.5M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10 10 0 0 0 5.4-1.6" />
+    <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M2 2l20 20" />
+  </svg>
+);
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,6 +68,7 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
   const isSignUp = mode === "sign-up";
   const [error, setError] = useState("");
   const [isPending, setIsPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   // A ref, because the Escape listener is added once and would see an old state.
   const pendingRef = useRef(false);
 
@@ -74,6 +109,7 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
     if (isSignUp && password.length < MIN_PASSWORD)
       return setError(ERROR_MESSAGES.PASSWORD_TOO_SHORT);
     if (!password) return setError("Enter your password");
+    if (password.length > MAX_PASSWORD) return setError(ERROR_MESSAGES.PASSWORD_TOO_LONG);
 
     setError("");
     setPending(true);
@@ -83,7 +119,7 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
         : await signIn.email({ email, password });
       if (result.error) {
         const code = result.error.code ?? "";
-        setError(ERROR_MESSAGES[code] ?? "Something went wrong. Please try again.");
+        setError(ERROR_MESSAGES[code] ?? messageForStatus(result.error.status));
         return;
       }
       close();
@@ -134,13 +170,26 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
             className={INPUT}
             autoFocus={!isSignUp}
           />
-          <input
-            name="password"
-            type="password"
-            placeholder={isSignUp ? `Password (${MIN_PASSWORD}+ characters)` : "Password"}
-            autoComplete={isSignUp ? "new-password" : "current-password"}
-            className={INPUT}
-          />
+          <div className="relative">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder={isSignUp ? `Password (${MIN_PASSWORD}+ characters)` : "Password"}
+              autoComplete={isSignUp ? "new-password" : "current-password"}
+              // pr-10: the text must not go under the eye button.
+              className={`${INPUT} pr-10`}
+            />
+            {/* type="button": a plain button inside a form would submit it. */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-pressed={showPassword}
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-500 hover:text-gray-800 cursor-pointer"
+            >
+              {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+            </button>
+          </div>
 
           {error && (
             <p role="alert" className="text-sm text-red-600">

@@ -11,10 +11,17 @@ const toGuardianId = (id: string) => decodeGuardianId(id) ?? id;
 // A bookmark that the server has not confirmed yet.
 const TEMP_PREFIX = "temp:";
 
+// Keeps the HTTP status, so onError can tell "session ended" (401) from other errors.
+class RequestError extends Error {
+  constructor(public status: number) {
+    super(`Bookmarks request failed: ${status}`);
+  }
+}
+
 // Without this check an error answer would look like normal data.
 async function check<T>(response: Promise<Response>): Promise<T> {
   const r = await response;
-  if (!r.ok) throw new Error(`Bookmarks request failed: ${r.status}`);
+  if (!r.ok) throw new RequestError(r.status);
   return r.json();
 }
 
@@ -34,7 +41,7 @@ const toBookmark = (article: ArticleType, id: string): SavedArticleType => ({
 // queryFn and mutationFn differ; the cards do not know where the list lives.
 export default function useBookmarks() {
   const queryClient = useQueryClient();
-  const { data: session, isPending: isSessionPending } = useSession();
+  const { data: session, isPending: isSessionPending, refetch: refetchSession } = useSession();
   const userId = session?.user.id;
   const isGuest = !isSessionPending && !userId;
   // The user id is in the key, so after a switch of accounts the old list is not shown.
@@ -51,11 +58,17 @@ export default function useBookmarks() {
   });
 
   // Optimistic update: change the cached list first, send the request after.
-  // After the request (success or error) reload the list: on error this puts the
-  // icon back. Reload only after the last running change, or an early GET could
-  // undo a change that is still on its way (two quick clicks on two cards).
+  // On error put the snapshot back at once: a reload alone is not enough, because
+  // with an ended session the reload fails too and the cache keeps our change.
+  // After the last running change reload the list (an early GET could undo a change
+  // that is still on its way: two quick clicks on two cards).
   const optimistic = {
     mutationKey: ["bookmarks"],
+    onError: (error: Error, _variables: unknown, snapshot?: SavedArticleType[]) => {
+      if (snapshot) queryClient.setQueryData(queryKey, snapshot);
+      // Session ended: read it again, the site switches to guest mode and 👤 offers sign-in.
+      if (error instanceof RequestError && error.status === 401) refetchSession();
+    },
     onSettled: () => {
       if (queryClient.isMutating({ mutationKey: ["bookmarks"] }) === 1) {
         return queryClient.invalidateQueries({ queryKey });
@@ -63,10 +76,13 @@ export default function useBookmarks() {
     },
   };
 
+  // Returns the list before the change (the snapshot for onError).
   async function changeList(change: (list: SavedArticleType[]) => SavedArticleType[]) {
     // Stop a running GET, or its old answer would overwrite our change.
     await queryClient.cancelQueries({ queryKey });
-    queryClient.setQueryData<SavedArticleType[]>(queryKey, (list = []) => change(list));
+    const snapshot = queryClient.getQueryData<SavedArticleType[]>(queryKey) ?? [];
+    queryClient.setQueryData<SavedArticleType[]>(queryKey, change(snapshot));
+    return snapshot;
   }
 
   const save = useMutation({
