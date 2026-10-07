@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/auth-client";
@@ -34,11 +34,22 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
   const isSignUp = mode === "sign-up";
   const [error, setError] = useState("");
   const [isPending, setIsPending] = useState(false);
+  // A ref, because the Escape listener is added once and would see an old state.
+  const pendingRef = useRef(false);
 
   const close = () => (intercepted ? router.back() : router.replace("/"));
+  // Backdrop, Escape and the cross do nothing while a request runs. Otherwise the
+  // dialog closes ("back"), and the successful answer then goes "back" a second time.
+  const dismiss = () => {
+    if (!pendingRef.current) close();
+  };
+  const setPending = (value: boolean) => {
+    pendingRef.current = value;
+    setIsPending(value);
+  };
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && dismiss();
     // Lock page scroll under the dialog. scrollbar-gutter keeps the width stable.
     document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
@@ -46,7 +57,7 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
       document.documentElement.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-    // close() only depends on router and intercepted, which do not change here.
+    // dismiss() only depends on router, intercepted and a ref, which do not change here.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -65,25 +76,32 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
     if (!password) return setError("Enter your password");
 
     setError("");
-    setIsPending(true);
-    const result = isSignUp
-      ? await signUp.email({ name, email, password })
-      : await signIn.email({ email, password });
-    setIsPending(false);
-
-    if (result.error) {
-      const code = result.error.code ?? "";
-      setError(ERROR_MESSAGES[code] ?? "Something went wrong. Please try again.");
-      return;
+    setPending(true);
+    try {
+      const result = isSignUp
+        ? await signUp.email({ name, email, password })
+        : await signIn.email({ email, password });
+      if (result.error) {
+        const code = result.error.code ?? "";
+        setError(ERROR_MESSAGES[code] ?? "Something went wrong. Please try again.");
+        return;
+      }
+      close();
+    } catch {
+      // No network: the request throws instead of returning an error.
+      setError("No connection. Please try again.");
+    } finally {
+      // Without finally the button stays "Please wait…" after a thrown error.
+      setPending(false);
     }
-    close();
   }
 
   return (
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-gray-100/80 backdrop-blur-[2px]"
-      // Close only on a click on the backdrop itself, not inside the card.
-      onClick={(e) => e.target === e.currentTarget && close()}
+      // Close only when the press starts on the backdrop. With onClick, a text selection
+      // that starts in a field and ends over the backdrop closes the dialog.
+      onPointerDown={(e) => e.target === e.currentTarget && dismiss()}
     >
       <div
         role="dialog"
@@ -93,7 +111,7 @@ export default function AuthDialog({ mode, intercepted }: AuthDialogProps) {
       >
         <button
           type="button"
-          onClick={close}
+          onClick={dismiss}
           aria-label="Close"
           className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-800 cursor-pointer"
         >

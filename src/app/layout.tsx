@@ -6,6 +6,7 @@ import CategoryBar from "@/components/CategoryBar";
 import Providers from "./providers";
 import Sidebar from "@/components/Sidebar";
 import ScrollButtons from "@/components/ScrollButtons";
+import GuestBookmarksSync from "@/components/GuestBookmarksSync";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children, auth }: RootLayoutProps) {
           <Footer />
           <ScrollButtons />
           {auth}
+          <GuestBookmarksSync />
         </Providers>
       </body>
     </html>

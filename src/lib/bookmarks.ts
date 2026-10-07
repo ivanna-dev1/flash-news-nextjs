@@ -5,13 +5,7 @@ import { prisma } from "@/lib/prisma";
 // userId always comes from the checked session (getCurrentUser), never from the request body.
 // Every query has userId in "where", so one user can never read or change another user's bookmarks.
 
-export interface BookmarkInput {
-  articleId: string;
-  title: string;
-  description: string;
-  image: string | null;
-  sectionId: string;
-}
+export type BookmarkInput = Pick<Bookmark, "articleId" | "title" | "description" | "image" | "sectionId">;
 
 export function listBookmarks(userId: string): Promise<Bookmark[]> {
   return prisma.bookmark.findMany({

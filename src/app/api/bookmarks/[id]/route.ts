@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/dal";
+import { getCurrentUser, unauthorized } from "@/lib/dal";
 import { removeBookmark } from "@/lib/bookmarks";
 
 // DELETE /api/bookmarks/<bookmark id> — remove a bookmark.
@@ -6,7 +6,7 @@ import { removeBookmark } from "@/lib/bookmarks";
 // 404 for a wrong id and for another user's bookmark (we do not say which one).
 export async function DELETE(_request: Request, ctx: RouteContext<"/api/bookmarks/[id]">) {
   const user = await getCurrentUser();
-  if (!user) return Response.json({ error: "Not signed in" }, { status: 401 });
+  if (!user) return unauthorized();
 
   const { id } = await ctx.params;
   const removed = await removeBookmark(user.id, id);

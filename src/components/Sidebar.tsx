@@ -9,12 +9,15 @@ import useNews from "../hooks/useNews";
 const SIDEBAR_SHARE = 2 / 3;
 
 export default function Sidebar() {
-  const { data, isLoading, isError } = useNews();
-  const news = data?.articles ?? [];
-
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const isArticlePage = pathname.startsWith("/news/");
+  // /saved is full width, like a category page without the sidebar.
+  const isHidden = pathname === "/saved";
+
+  // Hidden sidebar: no Guardian request.
+  const { data, isLoading, isError } = useNews(undefined, undefined, !isHidden);
+  const news = data?.articles ?? [];
   const columns = isHomePage ? 2 : 1;
 
   const asideRef = useRef<HTMLElement>(null);
@@ -47,6 +50,8 @@ export default function Sidebar() {
     countCards();
     return () => observer.disconnect();
   }, [columns, news.length, pathname]);
+
+  if (isHidden) return null;
 
   return (
     // Top margins align "Local Weather" with the first cards (categories)

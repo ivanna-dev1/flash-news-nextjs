@@ -14,16 +14,17 @@ export default function BigNewsCard({ article }: BigNewsCardProps) {
   const displayDescription = truncateHtml(article.description, 90);
 
   return (
-    <div className="flex flex-col items-center border border-gray-100 text-gray-800 gap-4 w-full p-5">
+    <div className="group relative transition-shadow duration-300 hover:shadow-md hover:border-gray-300 flex flex-col items-center border border-gray-100 text-gray-800 gap-4 w-full p-5">
       <div className="flex sm:flex-row flex-col justify-between items-center gap-5 w-full">
-        <div className="flex-1 w-full">
+        {/* overflow-hidden here, not on the card: it would cut the Share menu. */}
+        <div className="flex-1 w-full overflow-hidden">
           <Image
             src={article.image || "/mainIMG_2.jpg"}
             alt="FlashNews"
             width={500}
             height={300}
             sizes="(min-width: 640px) 33vw, 100vw"
-            className="w-full h-auto"
+            className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
         <div
@@ -31,10 +32,15 @@ export default function BigNewsCard({ article }: BigNewsCardProps) {
           dangerouslySetInnerHTML={{ __html: displayDescription }}
         />
       </div>
-      <h2 className="text-center text-2xl font-medium text-red-800 line-clamp-4 hover:text-red-700 cursor-pointer hover:underline">
-        <Link href={`/news/${article.id}`}>{article.title}</Link>
+      {/* Stretched link: ::after covers the whole card (relative), so a click anywhere
+          opens the article. A wrapping <a> would hold buttons, which HTML forbids. */}
+      <h2 className="text-center text-2xl font-medium text-red-800 line-clamp-4 group-hover:text-red-700 group-hover:underline">
+        <Link href={`/news/${article.id}`} className="after:absolute after:inset-0">
+          {article.title}
+        </Link>
       </h2>
-      <div className="flex flex-row justify-between items-stretch gap-2 text-gray-700 text-md">
+      {/* relative z-10: the buttons stay above the stretched link. */}
+      <div className="relative z-10 flex flex-row justify-between items-stretch gap-2 text-gray-700 text-md">
         <ShareButton
           path={`/news/${article.id}`}
           title={article.title}
