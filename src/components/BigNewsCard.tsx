@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ArticleType } from "@/types/news";
 import { truncateHtml } from "@/lib/truncateHtml";
-import BookmarkIcon from "./BookmarkIcon";
+import SaveButton from "./SaveButton";
 import ShareButton from "./ShareButton";
 
 interface BigNewsCardProps {
@@ -40,9 +40,11 @@ export default function BigNewsCard({ article }: BigNewsCardProps) {
           title={article.title}
           className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded font-medium"
         />
-        <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-4 rounded">
-          <BookmarkIcon className="size-6" />
-        </button>
+        <SaveButton
+          article={article}
+          className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-4 rounded"
+          iconClassName="size-6"
+        />
       </div>
     </div>
   );

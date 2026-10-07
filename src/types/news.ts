@@ -35,3 +35,15 @@ export interface SubCategoryType {
 export interface CategoryType extends SubCategoryType {
     subcategories: SubCategoryType[];
 }
+
+// A bookmark as the browser gets it from /api/bookmarks (JSON, so dates are strings).
+export interface SavedArticleType {
+  id: string;
+  // Original Guardian id (not URL-encoded).
+  articleId: string;
+  title: string;
+  description: string;
+  image: string | null;
+  sectionId: string;
+  createdAt: string;
+}

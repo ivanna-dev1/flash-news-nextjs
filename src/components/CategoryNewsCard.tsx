@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ArticleType } from "@/types/news";
 import { truncateHtml } from "@/lib/truncateHtml";
-import BookmarkIcon from "./BookmarkIcon";
+import SaveButton from "./SaveButton";
 import ShareButton from "./ShareButton";
 
 interface CategoryNewsCardProps {
@@ -65,9 +65,11 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
             title={article.title}
             className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-2 py-1 rounded font-medium"
           />
-          <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-2 rounded">
-            <BookmarkIcon className="size-5" />
-          </button>
+          <SaveButton
+            article={article}
+            className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-2 rounded"
+            iconClassName="size-5"
+          />
         </div>
       </div>
     </div>
