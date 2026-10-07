@@ -1,0 +1,9 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+// The connection string is in prisma7.config.ts (Prisma 7).
+datasource db {
+  provider = "postgresql"
+}
