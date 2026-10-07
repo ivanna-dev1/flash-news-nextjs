@@ -11,7 +11,7 @@ const CategoryBar = () => {
       {navCategories.slice(1, 8).map((category, index) => (
         <Fragment key={category.slug}>
           <Link
-            className="hover:text-blue-900 text-lg min-[460px]:text-[length:clamp(14px,calc((100cqw_-_48px)/27),18px)] transition-colors duration-300"
+            className="hover:text-blue-900 hover:underline underline-offset-4 text-lg min-[460px]:text-[length:clamp(14px,calc((100cqw_-_48px)/27),18px)] transition-colors duration-300"
             href={`/${category.slug}`}
           >
             {category.name}

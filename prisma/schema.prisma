@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+// The connection string is in prisma7.config.ts (Prisma 7).
+datasource db {
+  provider = "postgresql"
+}
+
+// Better Auth tables. The fields match the Better Auth 1.7 core schema.
+// Better Auth creates the ids itself, so they have no @default.
+
+model User {
+  id            String     @id
+  name          String
+  email         String     @unique
+  emailVerified Boolean    @default(false)
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  bookmarks     Bookmark[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+// One row per login method. For email + password, providerId is
+// "credential" and password keeps the hash.
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+// Short-lived tokens (email check, password reset).
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// A saved article. We copy the title, image and description,
+// so /saved does not need a Guardian request for each article.
+model Bookmark {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Guardian id as Guardian sends it (not URL-encoded), e.g. "world/2026/oct/07/slug".
+  articleId   String
+  title       String
+  description String
+  image       String?
+  sectionId   String
+  createdAt   DateTime @default(now())
+
+  // One user can save one article only once.
+  @@unique([userId, articleId])
+  @@index([userId, createdAt])
+  @@map("bookmark")
+}

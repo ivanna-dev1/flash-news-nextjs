@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { popularSearches } from "@/data/popularSearches";
-import { CloseIcon, SearchIcon } from "./HeaderIcons";
+import { CloseIcon, HEADER_BUTTON, SearchIcon } from "./HeaderIcons";
 
 interface SearchBoxProps {
   isOpen: boolean;
@@ -102,11 +102,11 @@ export default function SearchBox({ isOpen, setIsOpen }: SearchBoxProps) {
       >
         Search
       </button>
-      {/* h-[0.7em] at text-3xl = cap height of the logo. */}
+      {/* h-[0.7em] = cap height of the logo. */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open search"
-        className="md:hidden w-8 h-8 shrink-0 flex items-center justify-center text-3xl cursor-pointer"
+        className={`md:hidden ${HEADER_BUTTON}`}
       >
         <SearchIcon className="h-[0.7em]" />
       </button>
@@ -134,7 +134,7 @@ export default function SearchBox({ isOpen, setIsOpen }: SearchBoxProps) {
             type="button"
             onClick={close}
             aria-label="Close search"
-            className="w-8 h-8 shrink-0 flex items-center justify-center text-3xl cursor-pointer"
+            className={HEADER_BUTTON}
           >
             <CloseIcon className="h-[0.7em]" />
           </button>

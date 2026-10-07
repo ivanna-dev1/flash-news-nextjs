@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SaveButton from "@/components/SaveButton";
+import ShareButton from "@/components/ShareButton";
 import ReadingProgress from "@/components/ReadingProgress";
 import { findPlaceByPath, findPlaceBySection } from "@/lib/categories";
 import { getArticle } from "@/lib/getNews";
@@ -82,6 +84,19 @@ export default async function NewsPage({ params, searchParams }: NewsPageProps) 
         <div
           className="article-body"
           dangerouslySetInnerHTML={{ __html: article.article ?? article.description }}
+        />
+      </div>
+      {/* clear-both: the photo floats left, the buttons go under the whole article. */}
+      <div className="clear-both flex justify-center gap-2 mt-8 pt-5 border-t border-gray-200 text-gray-700">
+        <ShareButton
+          path={`/news/${article.id}`}
+          title={article.title}
+          className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-4 py-2 rounded font-medium"
+        />
+        <SaveButton
+          article={article}
+          className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-4 rounded"
+          iconClassName="size-6"
         />
       </div>
     </div>

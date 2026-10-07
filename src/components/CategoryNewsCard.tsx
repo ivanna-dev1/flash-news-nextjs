@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ArticleType } from "@/types/news";
 import { truncateHtml } from "@/lib/truncateHtml";
-import BookmarkIcon from "./BookmarkIcon";
+import SaveButton from "./SaveButton";
 import ShareButton from "./ShareButton";
 
 interface CategoryNewsCardProps {
@@ -18,7 +18,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
 
   return (
     <div
-      className={`flex flex-col items-center border border-gray-100 text-gray-800 gap-2 md:h-[300px] w-full pt-4 pb-2 px-3 ${isBig ? "md:col-span-3" : "md:col-span-2"
+      className={`group relative transition-shadow duration-300 hover:shadow-md hover:border-gray-300 flex flex-col items-center border border-gray-100 text-gray-800 gap-2 md:h-[300px] w-full pt-4 pb-2 px-3 ${isBig ? "md:col-span-3" : "md:col-span-2"
         }`}
     >
       <div className="@container w-full">
@@ -33,7 +33,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
         >
           <div
             // Small card photo: 153x92 + 4px margin = 4 lines of text.
-            className={`w-full mb-1 sm:w-1/3 sm:shrink-0 sm:mb-0 md:mb-1 ${isBig ? "md:float-left md:mr-3 md:w-1/2 md:min-w-[153px]" :"md:w-[153px] md:@min-[265px]:float-left md:@min-[265px]:mr-3"}`}
+            className={`overflow-hidden w-full mb-1 sm:w-1/3 sm:shrink-0 sm:mb-0 md:mb-1 ${isBig ? "md:float-left md:mr-3 md:w-1/2 md:min-w-[153px]" :"md:w-[153px] md:@min-[265px]:float-left md:@min-[265px]:mr-3"}`}
           >
             <Image
               src={article.image || "/mainIMG_2.jpg"}
@@ -42,7 +42,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
               height={300}
               sizes="(min-width: 640px) 240px, 100vw"
               // Some previews are 5:4, keep one frame for all cards.
-              className="w-full aspect-[5/3] object-cover"
+              className="w-full aspect-[5/3] object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             />
           </div>
           <div
@@ -55,19 +55,29 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
       <div className="mt-auto flex flex-col items-center gap-2 w-full">
         {/* 2lh: the title box is always two lines high. */}
         <div className="h-[2lh] text-xl flex items-center justify-center">
-          <h2 className="text-center font-medium text-red-800 line-clamp-2 hover:text-red-700 cursor-pointer hover:underline">
-            <Link href={from ? `/news/${article.id}?from=${from}` : `/news/${article.id}`}>{article.title}</Link>
+          {/* Stretched link: ::after covers the whole card (relative), so a click anywhere
+              opens the article. A wrapping <a> would hold buttons, which HTML forbids. */}
+          <h2 className="text-center font-medium text-red-800 line-clamp-2 group-hover:text-red-700 group-hover:underline">
+            <Link
+              href={from ? `/news/${article.id}?from=${from}` : `/news/${article.id}`}
+              className="after:absolute after:inset-0"
+            >
+              {article.title}
+            </Link>
           </h2>
         </div>
-        <div className="flex flex-row justify-between items-stretch gap-1 text-gray-700 text-md">
+        {/* relative z-10: the buttons stay above the stretched link. */}
+        <div className="relative z-10 flex flex-row justify-between items-stretch gap-1 text-gray-700 text-md">
           <ShareButton
             path={`/news/${article.id}`}
             title={article.title}
             className="border border-gray-500 hover:bg-gray-100 cursor-pointer px-2 py-1 rounded font-medium"
           />
-          <button aria-label="Save" className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-2 rounded">
-            <BookmarkIcon className="size-5" />
-          </button>
+          <SaveButton
+            article={article}
+            className="border border-gray-500 hover:bg-gray-100 cursor-pointer flex items-center px-2 rounded"
+            iconClassName="size-5"
+          />
         </div>
       </div>
     </div>
