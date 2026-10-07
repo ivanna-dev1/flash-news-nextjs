@@ -19,8 +19,6 @@ function toSearchText(raw: string | string[] | undefined): string {
   return (text ?? "").trim().slice(0, MAX_SEARCH_LENGTH);
 }
 
-const searchCrumb = { name: "Search", slug: "search" };
-
 export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
   const searchText = toSearchText((await searchParams).q);
   return {
@@ -37,7 +35,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   if (!searchText) {
     return (
       <div>
-        <Breadcrumbs category={searchCrumb} />
+        <Breadcrumbs title="Search" />
         <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">Search</h3>
         <PopularSearches title="Popular searches" />
       </div>
@@ -54,7 +52,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div>
-      <Breadcrumbs category={searchCrumb} title={searchText} />
+      <Breadcrumbs title={searchText} />
       <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5 break-words">
         Search: {searchText}
       </h3>

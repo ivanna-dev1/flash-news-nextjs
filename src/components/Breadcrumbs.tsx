@@ -1,3 +1,5 @@
+"use client";
+import { useLayoutEffect, useRef, useState, type Ref } from "react";
 import Link from "next/link";
 import type { SubCategoryType } from "@/types/news";
 
@@ -7,43 +9,99 @@ interface BreadcrumbsProps {
   title?: string;
 }
 
-export default function Breadcrumbs({ category, subcategory, title }: BreadcrumbsProps) {
+const LINK = "shrink-0 whitespace-nowrap hover:underline cursor-pointer hover:text-blue-900";
+
+// A long name is shown in full or as its first word ("Global"), never cut in the middle.
+function CrumbLink({
+  href,
+  name,
+  short,
+  restRef,
+}: {
+  href: string;
+  name: string;
+  short: boolean;
+  restRef: Ref<HTMLSpanElement>;
+}) {
+  const [first, ...rest] = name.split(" ");
   return (
-    // One line. The title shrinks first (shrink-[100]) down to 3em,
-    // then the subcategory gets truncated.
-    <div className="flex flex-row gap-2 text-gray-700 text-md ">
-      <Link
-        className="shrink-0 whitespace-nowrap hover:underline cursor-pointer hover:text-blue-900"
-        href="/"
-      >
+    <Link className={LINK} href={href}>
+      {first}
+      {rest.length > 0 && !short && <span ref={restRef}> {rest.join(" ")}</span>}
+    </Link>
+  );
+}
+
+export default function Breadcrumbs({ category, subcategory, title }: BreadcrumbsProps) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const subRestRef = useRef<HTMLSpanElement>(null);
+  const catRestRef = useRef<HTMLSpanElement>(null);
+  // 0 = full names, 1 = short subcategory, 2 = short subcategory and category.
+  const [level, setLevel] = useState(0);
+
+  // CSS can only shrink smoothly, but a name must be full or one word.
+  // So we measure once with full names and pick the level from the row width.
+  useLayoutEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+    // First run is at level 0. Width needed with full names: all parts,
+    // the title at its 3em minimum (it grows into free space) and the gaps.
+    const parts = [...row.children] as HTMLElement[];
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    const full =
+      parts.reduce(
+        (sum, el) =>
+          sum + (el === parts.at(-1) && title ? parseFloat(getComputedStyle(el).minWidth) : el.offsetWidth),
+        0,
+      ) +
+      gap * (parts.length - 1);
+    const rests = [subRestRef.current?.offsetWidth ?? 0, catRestRef.current?.offsetWidth ?? 0];
+
+    const update = () => {
+      let need = full;
+      let next = 0;
+      while (need > row.clientWidth && next < rests.length) need -= rests[next++];
+      setLevel(next);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [category?.name, subcategory?.name, title]);
+
+  return (
+    // One line. The title takes only the space that is left (basis-0 + grow), down to 3em.
+    // overflow-hidden: no page scroll for a moment before the first measure.
+    <div ref={rowRef} className="flex flex-row gap-2 text-gray-700 text-md overflow-hidden">
+      <Link className={LINK} href="/">
         Home
       </Link>
       {category && (
         <>
           <p className="shrink-0"> / </p>
-          <Link
-            className="shrink-0 whitespace-nowrap hover:underline cursor-pointer hover:text-blue-900"
+          <CrumbLink
             href={`/${category.slug}`}
-          >
-            {category.name}
-          </Link>
+            name={category.name}
+            short={level >= 2}
+            restRef={catRestRef}
+          />
         </>
       )}
       {category && subcategory && (
         <>
           <p className="shrink-0"> / </p>
-          <Link
-            className={`whitespace-nowrap hover:underline cursor-pointer hover:text-blue-900 ${title ? "min-w-0 truncate" : "shrink-0"}`}
+          <CrumbLink
             href={`/${category.slug}/${subcategory.slug}`}
-          >
-            {subcategory.name}
-          </Link>
+            name={subcategory.name}
+            short={level >= 1}
+            restRef={subRestRef}
+          />
         </>
       )}
       {title && (
         <>
           <p className="shrink-0"> / </p>
-          <p className="min-w-[3em] shrink-[100] italic text-gray-500 truncate capitalize">{title}</p>
+          <p className="min-w-[3em] grow basis-0 italic text-gray-500 truncate capitalize">{title}</p>
         </>
       )}
     </div>
