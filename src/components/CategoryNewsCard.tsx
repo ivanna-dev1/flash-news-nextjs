@@ -18,7 +18,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
 
   return (
     <div
-      className={`group relative transition-shadow duration-300 hover:shadow-md hover:border-gray-300 flex flex-col items-center border border-gray-100 text-gray-800 gap-2 md:h-[300px] w-full pt-4 pb-2 px-3 ${isBig ? "md:col-span-3" : "md:col-span-2"
+      className={`has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-gray-800 group relative transition-shadow duration-300 hover:shadow-md hover:border-gray-300 flex flex-col items-center border border-gray-100 text-gray-800 gap-2 md:h-[300px] w-full pt-4 pb-2 px-3 ${isBig ? "md:col-span-3" : "md:col-span-2"
         }`}
     >
       <div className="@container w-full">
@@ -60,7 +60,7 @@ export default function CategoryNewsCard({ article, isBig, from }: CategoryNewsC
           <h2 className="text-center font-medium text-red-800 line-clamp-2 group-hover:text-red-700 group-hover:underline">
             <Link
               href={from ? `/news/${article.id}?from=${from}` : `/news/${article.id}`}
-              className="after:absolute after:inset-0"
+              className="after:absolute after:inset-0 focus-visible:outline-none"
             >
               {article.title}
             </Link>

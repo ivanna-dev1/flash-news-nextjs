@@ -12,7 +12,7 @@ export default function SavedPage() {
   return (
     <div>
       <Breadcrumbs title="Saved" />
-      <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">Saved articles</h3>
+      <h1 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">Saved articles</h1>
       <SavedList />
     </div>
   );

@@ -32,7 +32,15 @@ function CrumbLink({
   );
 }
 
-export default function Breadcrumbs({ category, subcategory, title }: BreadcrumbsProps) {
+// A new key for every new path: the row is created again and measured with full
+// names. Without it, a move article -> article keeps the old level, the short
+// names have no "rest" spans to measure, and the row ends up cut.
+export default function Breadcrumbs(props: BreadcrumbsProps) {
+  const key = `${props.category?.slug}/${props.subcategory?.slug}/${props.title}`;
+  return <BreadcrumbsRow key={key} {...props} />;
+}
+
+function BreadcrumbsRow({ category, subcategory, title }: BreadcrumbsProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const subRestRef = useRef<HTMLSpanElement>(null);
   const catRestRef = useRef<HTMLSpanElement>(null);
@@ -101,7 +109,7 @@ export default function Breadcrumbs({ category, subcategory, title }: Breadcrumb
       {title && (
         <>
           <p className="shrink-0"> / </p>
-          <p className="min-w-[3em] grow basis-0 italic text-gray-500 truncate capitalize">{title}</p>
+          <p className="min-w-[3em] grow basis-0 italic text-gray-500 truncate">{title}</p>
         </>
       )}
     </div>

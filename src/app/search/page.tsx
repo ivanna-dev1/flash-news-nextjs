@@ -36,7 +36,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return (
       <div>
         <Breadcrumbs title="Search" />
-        <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">Search</h3>
+        <h1 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">Search</h1>
         <PopularSearches title="Popular searches" />
       </div>
     );
@@ -53,9 +53,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <div>
       <Breadcrumbs title={searchText} />
-      <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5 break-words">
+      <h1 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5 break-words">
         Search: {searchText}
-      </h3>
+      </h1>
 
       {articles.length === 0 ? (
         <>
