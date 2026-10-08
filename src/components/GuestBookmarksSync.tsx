@@ -23,15 +23,15 @@ export default function GuestBookmarksSync() {
     (async () => {
       try {
         const results = await Promise.allSettled(guest.map((b) => postBookmark(b)));
-        // Remove from this browser what is done: saved, or refused for good (bad data).
-        // Keep what can work next time: no network, 401, server errors.
+        // Remove from this browser what is done: saved, or refused for good (400 / 422 =
+        // bad data). Keep what can work next time: no network, 401, 429, server errors.
         const done = new Set(
           guest
             .filter((_, i) => {
               const r = results[i];
               if (r.status === "rejected") return false;
               const status = r.value.status;
-              return r.value.ok || (status >= 400 && status < 500 && status !== 401);
+              return r.value.ok || status === 400 || status === 422;
             })
             .map((b) => b.id),
         );
