@@ -37,9 +37,9 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   return (
     <div>
       <Breadcrumbs category={currentCategory} />
-      <h3 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">
+      <h1 className="text-3xl font-semibold text-center text-gray-700 p-1 mb-5">
         {currentCategory.name} news
-      </h3>
+      </h1>
 
       <div className="flex flex-col md:grid grid-cols-5 flex-1 gap-2 items-start content-start">
         {articles.map((article, index) => (

@@ -9,7 +9,8 @@ const noZeroChar = (s: string) => !s.includes("\u0000");
 
 // Limits only stop junk and huge bodies. Real Guardian values are much shorter.
 const bookmarkSchema = z.object({
-  // Cards send the URL-encoded id; we keep the original Guardian id in the database.
+  // Decode here too: a client may send the URL-encoded id (as in links), and the
+  // database must keep one form, or @@unique would miss a duplicate.
   articleId: z
     .string()
     .trim()

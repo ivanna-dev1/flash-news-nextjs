@@ -130,9 +130,10 @@ export default function SearchBox({ isOpen, setIsOpen }: SearchBoxProps) {
           <button type="submit" className="bg-gray-700 text-white px-4 py-2 rounded cursor-pointer">
             Search
           </button>
+          {/* Only closes: the text stays until a search is sent. */}
           <button
             type="button"
-            onClick={close}
+            onClick={() => setIsOpen(false)}
             aria-label="Close search"
             className={HEADER_BUTTON}
           >
